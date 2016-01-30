@@ -1,1 +1,1 @@
-rm -rf public/assets && RAILS_ENV=production rake assets:precompile && git add . && git commit -m "assets precompile" && heroku maintenance:on && git push heroku master && heroku run:detached db:migrate && heroku maintenance:off
+rm -rf public/assets && RAILS_ENV=production rake assets:precompile && git add . && git commit -m "assets precompile" && heroku maintenance:on && git push heroku master && heroku run:detached db:migrate && heroku maintenance:off && git push origin
