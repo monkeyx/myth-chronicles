@@ -12,7 +12,7 @@ namespace :myth do
     task :create, [:name, :map, :frequency] => :environment  do |name, args|
         name = args[:name] || 'The Crucible (Playtest)'
         map = args[:map] || '1'
-        frequency = args[:frequency] || 1
+        frequency = args[:frequency] || 8
         puts "Creating game '#{name}' of map #{map} with cycle frequency of #{frequency}"
         Game.create!(name: name, map_name: map, cycle_frequency: frequency)
     end

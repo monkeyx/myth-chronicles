@@ -85,7 +85,7 @@ class SetupUser
 	        	end
 	        end
 
-	        character.give_first_quest!
+	        #character.give_first_quest!
 	        user.update_attributes!(setup_complete: true)
 	    	user.send_completion!
 	    	game.post_on_forum!("Greetings from #{character.name}", "A new #{character.character_type} has risen in #{game.name}.\n\n#{character.name} joined on #{game.game_time}.", user)
