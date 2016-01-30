@@ -1,0 +1,43 @@
+<div ng-if="position.type == 'Army'" class="panel panel-default">
+	<div class="panel-heading"><strong>Units</strong></div>
+	<table class="table table-striped">
+		<thead>
+			<tr>
+				<th></th>
+				<th>Unit</th>
+				<th class="non-mobile"><span title="Strength">Str</span></th>
+				<th class="non-mobile"><span title="Armour">Arm</span></th>
+				<th class="non-mobile"><span title="Speed">Spd</span></th>
+				<th class="non-mobile"><span title="Morale">Mor</span></th>
+				<th class="non-mobile"><span title="Scouting">Sct</span></th>
+				<th class="non-mobile"><span title="Bless"><i class="fa fa-plus-circle"></i></span></th>
+				<th class="non-mobile"><span title="Health"><i class="fa fa-heartbeat"></i></span></th>
+				<th class="non-mobile">Range</span></th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-animate="'animate'" ng-repeat="unit in position.units">
+				<td><img ng-src="/icons/items/{{unit.icon}}.png" ng-if="unit.icon"></td>
+				<td>
+					<strong>{{unit.name}}</strong>
+					<span ng-if="unit.siege_equipment"><br>using {{unit.siege_equipment.name}}</span>
+					<span ng-if="unit.tactic"><br>{{unit.tactic}} tactic</span>
+					<span ng-if="unit.training"><br>{{unit.training}} training</span>
+					<span ng-if="unit.vehicle"><br>onboard {{unit.vehicle.name}}</span>
+				</td>
+				<td class="non-mobile">{{unit.strength_rating}}</td>
+				<td class="non-mobile">{{unit.armour_rating}}</td>
+				<td class="non-mobile">{{unit.speed_rating}}</td>
+				<td class="non-mobile">{{unit.morale_rating}}</td>
+				<td class="non-mobile">{{unit.scouting_rating}}</td>
+				<td class="non-mobile">{{unit.bless_rating}}</td>
+				<td class="non-mobile">{{unit.health}}%</td>
+				<td class="non-mobile">
+					<i class="fa fa-arrow-right"></i>
+					<i ng-if="unit.range > 0" class="fa fa-arrow-right"></i>
+					<i ng-if="unit.range > 1" class="fa fa-arrow-right"></i>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>

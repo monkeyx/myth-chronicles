@@ -1,0 +1,94 @@
+<%
+	sections = []
+
+	sections << {
+		title: 'Attacking Armies',
+		body: "<p>An army may attack another non-friendly* army at the same location at the cost of 4 action points.</p>
+		<p>Combat is fought until one side is either entirely routed or destroyed. The army that loses will, if it can move, retreat to a neighbouring hex. The winner will receive some gold for every enemy unit destroyed or routed.</p>
+		<p class='note'>* Not owned by the same character or one in the same alliance</p>"
+	}
+
+	sections << {
+		title: 'Challenging Characters',
+		body: "<p>Any character may issue another character a challenge to a fight as long as they are at the same location.</p>
+		<p>Challenges remain valid as long as the challenger does not move and may either be refused or allowed to expire after 1 year. If a challenge is refused or expires, the character that was challenged will lose one renown.</p>
+		<p>If a challenge is accepted, the two character units will fight an otherwise normal battle immediately. Both characters will receive one renown regardless of the outcome although the loser may be incapacitated or killed.</p>"
+	}
+
+	sections << {
+		title: 'Combat Resolution',
+		body: "<p>Combat is fought in rounds starting with a Long range round, followed by a Short range round and finally as many Melee combat rounds as needed until one or both sides' units are either completely routed or destroyed.</p>
+		<p>In Long and Short range rounds only units capable of fighting at those ranges will attack. If no unit on either side is capable of Long or Short range combat, that particular round is skipped.</p>
+		<p>Units act in descending order of their Speed Rating. A unit will select a potential target and attack once.</p>
+		<p>Once all units capable of attacking have attacked in the round, units that have been damaged or terrified will need to make a morale check.</p>"
+	}
+
+	sections << {
+		title: 'How Units Target',
+		body: "<p>Units will target enemy units based on the following factors:</p>
+		<ol>
+			<li><strong>Slowest (lowest Speed Rating)</strong> - they are easier to catch
+			<li><strong>Healthiest</strong> - they put themselves in front of their damaged comrades
+			<li><strong>Highest Armour Rating</strong> - likewise, they put themselves in front of their weaker comrades
+			<li><strong>Highest Strength Rating</strong> - if possible, the unit that is likely to do most damage later will be picked as a target
+		</ol>"
+	}
+
+	sections << {
+		title: 'Attacks',
+		body: "<p>Units attack a single other unit. To determine the success of the attack, the unit's attack score is compared with the target unit's defence score.</p>
+		<p><strong>Attack Score</strong> = Health x Tactic Modifier x (Strength Rating + Bless Rating + Melee Penalty + Random)</p>
+		<p>Random is 1 to 6.</p>
+		<p>Short range units suffer a -1 Melee Penalty whilst Long range units suffer a -2 Melee Penalty.</p>
+		<p><strong>Defence Score</strong> = Health x Tactic Modifier x (Armour Rating + Bless Rating + Fortification Bonus - Siege Effectiveness + Terrain Bonus + Random)</p>
+		<p>The fortification bonus is the Defence Rating of a friendly settlement at the same location. The maximum Siege Effectiveness of the attacker cannot be greater than the settlement's Defence Rating.</p>
+		<h4>Attack Resolution</h4>
+		<p>If the attack score is greater than half the defence score, then the target is wounded (1 - 6% health lost).</p>
+		<p>If the attack score is greater than the the defence score, then the target unit is severely wounded (11 - 25% health lost).</p>
+		<p>If the attack score is two times or greater, then the target unit is critically wounded (26 - 50% health lost).</p>
+		<p>If the attack score is three times or more greater than the defence score, the target unit is completely annihilated.</p>
+		<p>Evasive units which are not completely annihilated take half damage from Short or Long range attacks.</p>
+		"
+	}
+
+	sections << {
+		title: 'Morale',
+		body: "<p>After each round of combat units that are damaged or terrified must make a morale check. They use a combined number of their own Morale Rating plus the Leadership Rating of the owning character.</p>
+		<p>The target number for the check is dependent on the amount of damage the unit has suffered. The more damage suffered, the greater the chance the unit will fail its morale check.</p>
+		<p>If the check fails, the unit is routed and will withdraw from the rest of the fighting.</p>
+		<p>Undead units never have to make morale checks.</p>"
+	}
+
+	sections << {
+		title: 'Capturing Settlements',
+		body: "<p>A settlement that is unguarded by a friendly army can be easily captured by a hostile army owned by a character of the appropriate type, i.e. an army belonging to a Lord can capture undefended Cities, an army belonging to a Dragon can capture undefended Lairs and an army belonging to a Necromancer can capture undefended Towers. Guilds cannot be captured.</p>
+		<p>Armies cannot try to capture settlements belonging to allies or neutral settlements, ie. those without an active player character owner.</p>
+		<p>Even a single unit army can guard a settlement and prevent its capture. Any guarding armies must be found and defeated before attempting to capture the settlement.</p>
+		<p>Capturing a settlement costs 4 action points.</p>"
+	}
+
+	sections << {
+		title: 'Razing Settlements',
+		body: "<p>If a character cannot or does not wish to capture a settlement, the army can instead elect to raze the settlement. Only non-friendly and non-neutral settlements which are undefended can be razed. Guilds cannot be razed.</p>
+		<p>Each attempt at razing the settlement will cause a Strength check for each unit in the army against the Defence Rating of the settlement. If successful, the Defence Rating of the settlement is reduced by one.</p>
+		<p>Once the settlement's defence rating is reduced to zero or less, the settlement is razed (completely removed from the game).</p>
+		<p>Each attempt to raze a settlement costs 4 action points.</p>"
+	}
+
+	sections << {
+		title: 'Sieges',
+		body: "<p>An army may put a settlement under siege as long it is in the same location. The settlement will remain under siege whilst the besieging army remains at the location and is not destroyed. Guilds cannot be besieged.</p>
+		<p>Settlements under siege will not be visited by <a href='/docs/trade_caravans'>trade caravans</a> and for cities, the population will become slowly less loyal.</p>"
+	}
+
+	sections << {
+		title: 'Subverting Cities',
+		body: "<p>A Lord may attempt to subvert a non-friendly and non-neutral city at the same location.</p>
+		<p>A Cunning <a href='/docs/how_it_all_works#attributes'>attribute check</a> is made against the city's loyalty. If successful, the city will join the Lord's positions.</p>"
+	}
+
+%>
+<% content_for :overview do %>
+Combat is usually between <a href='/docs/armies'>armies</a> but characters can challenge enemy characters to a fight without their retinue of other units. Armies can also capture and raze settlements undefended by a friendly army.
+<% end %>
+<%=render partial: '/docs/template', locals: {title: 'Combat', url: 'combat', sections: sections} %>

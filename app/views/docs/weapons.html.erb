@@ -1,0 +1,70 @@
+<%
+	sections = []
+
+	def weapon_table(name)
+		item = Item.named(name).first
+
+		"<table class='table table-striped'>
+			<tr>
+				<th>Raw Materials</th>
+				<td>#{item.raw_materials_description}</td>
+			</tr>
+			<tr>
+				<th>Strength Rating Modifier</th>
+				<td>#{item.strength_rating}</td>
+			</tr>
+			<tr>
+				<th>Speed Rating Modifier</th>
+				<td>#{item.speed_rating}</td>
+			</tr>
+			<tr>
+				<th>Range</th>
+				<td>#{item.range_description}</td>
+			</tr>
+			<tr>
+				<th>Training Required</th>
+				<td>#{item.training_required.blank? ? 'None' : item.training_required}</td>
+			</tr>
+		</table>"
+	end
+
+	sections << {
+		title: 'Axe',
+		icon: 'items/axe.png',
+		body: weapon_table('Axe')
+	}
+
+	sections << {
+		title: 'Sword',
+		icon: 'items/sword.png',
+		body: weapon_table('Sword')
+	}
+
+	sections << {
+		title: 'Lance *',
+		icon: 'items/lance.png',
+		body: weapon_table('Lance') + "<p class='note'>* Lances can only be used by mounted units</p>"
+	}
+
+	sections << {
+		title: 'Spear',
+		icon: 'items/spear.png',
+		body: weapon_table('Spear')
+	}
+
+	sections << {
+		title: 'Bow',
+		icon: 'items/bow.png',
+		body: weapon_table('Bow')
+	}
+
+	sections << {
+		title: 'Crossbow',
+		icon: 'items/crossbow.png',
+		body: weapon_table('Crossbow')
+	}
+%>
+<% content_for :overview do %>
+Weapons are produced in <a href='/docs/settlements'>settlements</a> from raw <a href='/docs/resources'>resources</a> or by <a href='/docs/spells#ritual'>ritual magic</a>. They are used by <a href='/docs/humanoids'>humanoid</a> and <a href='/docs/undead'>undead</a> <a href='/docs/armies'>army units</a> to improve their Strength Rating and some will increase their range of attacks. Some weapons require training to use.
+<% end %>
+<%=render partial: '/docs/template', locals: {title: 'Weapons', url: 'weapons', sections: sections} %>

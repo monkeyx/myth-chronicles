@@ -1,0 +1,28 @@
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" ng-click="isCollapsed = !isCollapsed">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/#/">Myth Chronicles</a>
+        </div>
+
+        <% 
+        nav_left = content_for(:nav_left) 
+        nav_right = content_for(:nav_right)
+        %>
+       <div id="navbar" class="navbar-collapse" uib-collapse="isCollapsed">
+          <ul class="nav navbar-nav">
+            <%=nav_left%>
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+            <li class="non-mobile"><a href="/forums"><img class="icon" src="/icons/forums.png" title="Forums"/><span class="nav-link-title">Forums</span></a></li>
+            <li class="non-mobile"><a href="/docs"><img class="icon" src="/icons/documentation.png" title="Documentation"/><span class="nav-link-title">Help</span></a></li>
+          <%=nav_right%>
+          </ul>
+        </div><!--/.navbar-collapse -->
+      </div>
+    </nav>

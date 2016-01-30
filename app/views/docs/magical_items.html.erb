@@ -1,0 +1,50 @@
+<%
+	sections = []
+
+	sections << {
+		title: 'Equipment Slots',
+		body: "
+		<p>Each magical item can be worn in one of the following equipment slots on a character:</p>
+		<table class='table table-striped'>
+			<thead>
+				<tr>
+					<th></th>
+					<th>Available to ...</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<th>Weapon</th>
+					<td>Heroes, Lords and Necromancers.</td>
+				</tr>
+				<tr>
+					<th>Armour</th>
+					<td>Heroes and Lords.</td>
+				</tr>
+				<tr>
+					<th>Amulet</th>
+					<td>Heroes, Lords and Dragons.</td>
+				</tr>
+				<tr>
+					<th>Ring</th>
+					<td>Heroes, Necromancers and Dragons.</td>
+				</tr>
+			</tbody>
+		</table>
+		"
+	}
+
+	sections << {
+		title: "Rank Modifiers",
+		body: "Each magical item confers a bonus to either Strength, Armour, Speed, Cunning, Leadership or Craft Rating of the character wearing it.</p>"
+	}
+
+	sections << {
+		title: 'Artefacts',
+		body: "These are exceptionally rare magical items that confer a +20 bonus. A Hero with an artefact worn in each slot may become <a href='/docs/immortality'>Immortal</a>.</p>"
+	}
+%>
+<% content_for :overview do %>
+<p>Magical items are found in <a href='/docs/dungeons'>dungeons</a> by <a href='/docs/characters#hero'>Hero</a> adventurers.</p>
+<% end %>
+<%=render partial: '/docs/template', locals: {title: 'Magical Items', url: 'Magical Items', sections: sections} %>

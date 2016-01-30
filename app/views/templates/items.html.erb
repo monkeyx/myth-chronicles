@@ -1,0 +1,24 @@
+<div ng-if="position.items.length > 0" class="panel panel-default">
+	<div class="panel-heading"><strong>Items</strong>
+		<a ng-if="!hide_items_table" ng-click="toggleItemsTable()" class="pull-right"><i class="fa fa-chevron-down"></i></a>
+		<a ng-if="hide_items_table" ng-click="toggleItemsTable()" class="pull-right"><i class="fa fa-chevron-up"></i></a>
+	</div>
+	<table class="table table-striped" ng-if="!hide_items_table">
+		<thead>
+			<tr>
+				<th></th>
+				<th>Item</th>
+				<th>Quantity</th>
+				<th class="non-mobile">Transport Capacity<br><span class="note">Land / Air / Sea</span></th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-animate="'animate'" ng-repeat="item in position.items">
+				<td><img ng-src="/icons/items/{{item.item.icon}}.png" class="icon"></td>
+				<td>{{item.item.name}}</td>
+				<td>{{item.quantity}}</td>
+				<td class="non-mobile">{{item.item.land_transport_capacity}} / {{item.item.air_transport_capacity}} / {{item.item.sea_transport_capacity}}
+			</tr>
+		</tbody>
+	</table>
+</div>

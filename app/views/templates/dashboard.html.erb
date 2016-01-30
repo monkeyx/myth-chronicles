@@ -1,0 +1,36 @@
+<div class="page-header">
+	<h1>{{game.name}} <small ng-if="!loadingPositions">{{currentUser.name}}'s Positions</small></h1>
+</div>
+
+<div id="spinner" ng-if="loadingPositions">
+  <div class="hexdots-loader">
+    Loading...
+  </div>
+</div>
+
+<div class="well no-action-content">
+	<ng-include src="'/t/quests'"></ng-include>
+	
+	<div class="table-responsive panel panel-default" ng-controller="PaginatedPositionsCtrl">
+		<p ng-if="loadingPositions" class="lead">Welcome back!</p>
+		<table ng-if="!loadingPositions" class="table table-striped">
+			<thead>
+				<tr>
+					<th>Name</th>
+					<th class="non-mobile">Type</th>
+					<th class="non-mobile">Location</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-animate="'animate'" ng-repeat="position in positions">
+					<td><a ui-sref="user.position({posType: position.type, posId: position.id})">{{position.name}} ({{position.id}})</a></td>
+					<td class="non-mobile">{{position.subtype}}</td>
+					<td class="non-mobile"><%=render partial: '/templates/location_address' %></td>
+				</tr>
+			</tbody>
+		</table>
+		<center>
+			<bgf-pagination url='positions_url' url-params='positions_params' collection='positions' per-page="10" per-page-presets="" auto-presets="false" reload-page="reloadPage"></bgf-pagination>
+		</center>
+	</div>
+</div>

@@ -1,0 +1,25 @@
+<div ng-controller="ActionQueueCtrl">
+	<div id="pendingActions" ng-if="queuedActions.length > 0" class="text-center">
+		<a id="actionQueueButton" class="btn btn-warning" ng-click="toggle()"><i class="fa fa-play-circle-o"></i><span class="non-mobile">Actions</span> ({{actionCount}})</a>
+	</div>
+	<div pageslide ps-open="checked" ps-side="top" ps-speed="0.1" ps-auto-close="true" ps-key-listener="true">
+	    <div id="pendingActionsPanel" class="panel panel-warning">
+	    	<div class="panel-heading">
+	    		<h3 class="panel-title"><button type="button" class="btn btn-default" ng-click="toggle()"><i class="fa fa-times"></i></button>&nbsp;Pending Actions</h3>
+	    	</div>
+	    	<div class="panel-body">
+	    		<table class="table table-condensed">
+					<tbody>
+						<tr ng-repeat="action in queuedActions">
+							<td>{{action.name}}</td>
+							<td><a ng-click="cancelAction(action.id)"><i class="fa fa-minus-circle"></i></a></td>
+						</tr>
+					</tbody>
+				</table>
+				<p ng-if="actionCount == 0" class="text-info text-center">
+					No pending actions
+				</p>
+			</div>
+	    </div>
+	</div>
+</div>

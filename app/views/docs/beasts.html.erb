@@ -1,0 +1,40 @@
+<%
+	sections = []
+
+	sections << {
+		title: "Finding Beasts",
+		body: "<table class='table table-striped'>
+	<thead>
+		<tr>
+			<th></th>
+			<th>Beast</th>
+			<th>Found in ...</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<th><img src='/icons/items/horse.png'></th>
+			<th>Horse</th>
+			<td>Plains</td>
+		</tr>
+		<tr>
+			<th><img src='/icons/items/wolf.png'></th>
+			<th>Wolves</th>
+			<td>Forests</td>
+		</tr>
+		<tr>
+			<th rowspan='2'><img src='/icons/items/gryphon.png'></th>
+			<th>Gryphons</th>
+			<td>Mountains</td>
+		</tr>
+		<tr>
+			<td colspan='2' class='note'>Gryphons add air transport capacity to an army if in the inventory or enable a unit to fly if used as mounts</td> 
+		</tr>
+	</tbody>
+</table>"
+	}
+%>
+<% content_for :overview do %>
+<p>Beasts are tamed by <a href='/docs/settlements#guilds'>Guilds</a> or by summoned through <a href='/docs/spells#ritual'>ritual magic</a>. They are used as mounts by <a href='/docs/armies'>army units</a> to improve their Speed Rating by 3. They can also be kept in the inventory of an army to carry one item each.</p>
+<% end %>
+<%=render partial: '/docs/template', locals: {title: 'Beasts', url: 'beasts', sections: sections} %>

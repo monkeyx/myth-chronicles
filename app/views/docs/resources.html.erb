@@ -1,0 +1,61 @@
+<%
+	def production_table(resource_name)
+		scope = Item.send("needs_#{resource_name}".to_sym).order('name ASC')
+		rows = scope.map do |item|
+			"<tr>
+				<td>#{item}</td>
+				<td>#{item.send(resource_name.to_sym)}</td>
+			</tr>"
+		end
+		"<table class='table table-striped'>
+			<thead>
+				<tr>
+					<th>Item</th>
+					<th>#{resource_name.capitalize} Needed</th>
+				</tr>
+			</thead>
+			<tbody>
+			#{rows.join("\n")}
+			</tbody>
+		</table>"
+	end
+
+	sections = []
+
+	sections << {
+		title: 'Hide',
+		icon: 'items/hide.png',
+		body: "<p>Hide is gathered by cities from animals found in Plains, Forests and Rivers territory.</p>
+			   <p>It is used in the production of the following items:</p>
+			   #{production_table('hide')}"
+	}
+
+	sections << {
+		title: 'Iron',
+		icon: 'items/iron.png',
+		body: "<p>Iron is mined by cities from ores found in Mountains, Barrens and Hills territory.</p>
+			   <p>It is used in the production of the following items:</p>
+			   #{production_table('iron')}"
+	}
+
+	sections << {
+		title: 'Stone',
+		icon: 'items/stone.png',
+		body: "<p>Stone is quarried by cities from Hills, Mountains and Barrens territory.</p>
+			   <p>It is used in the formation of settlements, except for lairs, and improving their defences.</p>
+			   <p>It is also used in the production of the following items:</p>
+			   #{production_table('stone')}"
+	}
+
+	sections << {
+		title: 'Wood',
+		icon: 'items/wood.png',
+		body: "<p>Wood is gathered by cities from plants found in Forests, Scrubland and Swamps territory.</p>
+			   <p>It is used in the formation of cities and in the production of the following items:</p>
+			   #{production_table('wood')}"
+	}
+%>
+<% content_for :overview do %>
+Resources are the raw materials for <a href='/docs/settlements#forming_new_settlements'>forming new settlements</a>, <a href='/docs/settlements#defences'>improving their defences</a> and building items such as <a href='/docs/weapons'>weapons</a> and <a href='/docs/armour'>armour</a>. Resources are gathered in cities based on the <a href='/docs/maps_and_terrain#territory'>territory</a> under their control or created by magic using the <a href='/docs/spells#ritual'>ritual spell</a>.
+<% end %>
+<%=render partial: '/docs/template', locals: {title: 'Resources', url: 'resources', sections: sections} %>

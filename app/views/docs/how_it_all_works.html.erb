@@ -1,0 +1,75 @@
+<%
+	sections = []
+
+	sections << {
+		title: 'Aim of the Game',
+		body: "<p>The ultimate goal of every player is to make their <a href='/docs/characters'>character</a> immortal, written in the annals of the game forever.</p>
+		<p>Each character type achieves this in <a href='/docs/immortality'>a different way</a>. Success will almost certainly require collaboration with other players.</p>"
+	}
+
+	sections << {
+		title: 'Roleplaying and Competition',
+		body: "<p>Players take the role of their <a href='/docs/characters'>character</a> and begin in competition with all other players. However, to achieve success they may benefit from trading information and items with others or even going as far as to join an <a href='/docs/alliances'>alliance</a>.</p>
+		<p>Players are encouraged to roleplay their characters in all communication, however, abusive messages will be flagged and result in the suspension of a player's account.</p>"
+	}
+
+	sections << {
+		title: 'Controlling Positions',
+		body: "<p>Players control <a href='/docs/armies'>armies</a> and <a href='/docs/settlements'>settlements</a> through their <a href='/docs/characters'>character</a>.</p>
+		<p>A player can view detailed reports of their own positions and order them to perform some action, e.g. tell an army to move in a particular direction or their character to cast a spell.</p>
+		<p>Players can transfer positions to other characters or lose them in <a href='/docs/combat'>combat</a>.</p>"
+	}
+
+	sections << {
+		title: 'Actions and Cycles',
+		body: "<p>Player positions are given actions to perform at any time. There is a queue of all actions pending for the game and each player can view the subset of actions concerned with their own positions.</p>
+			<p>Actions are processed one at a time by the game engine.</p>
+			<p> If an action cannot be performed for some reason, e.g. the player character doesn't have the required action points, the player is told what went wrong and the action is removed from the queue.</p>
+			<p>At regular intervals, the game advances in time by 1 <a href='/docs/time'>cycle</a>. This happens in-between ordered actions and triggers a number of automatic changes in the world:</p>
+			<ul>
+			<li>Characters regenerate action and mana points
+			<li>Issued <a href='/docs/combat#character_challenges'>challenges</a> may expire
+			<li><a href='/docs/armies'>Units</a> regenerate health
+			<li><a href='/docs/settlements#cities'>Cities</a> produce resources
+			<li><a href='/docs/settlements'>Settlements</a> recruit <a href='/docs/humanoids'>humanoids</a>, <a href='/docs/elementals'>elementals</a> or <a href='/docs/undead'>undead</a>.
+			<li><a href='/docs/trade_caravans'>Trade caravans</a> match buyers and sellers.
+			</ul>"
+	}
+
+	sections << {
+		title: 'Attributes',
+		body: "<p>All <a href='/docs/characters'>characters</a> and <a href='/docs/armies'>army units</a> have a set of attributes that describe how good they are at various tasks:</p>
+			<ul>
+			<li><strong>Strength</strong>: Physique and martial capability. Used to determine attacking power in combat and in overcoming challenges in dungeons.
+			<li><strong>Armour</strong>: Protection from injury. Used to determine defensive power in combat and survival when failing challenges in dungeons.
+			<li><strong>Speed</strong>: Initiative and dodge. Used to determine whether the unit is targetted in combat and when in each combat round they will act.
+			<li><strong>Cunning (characters only)</strong>: Charm and wits. Used to overcome puzzles in dungeons or to subvert cities. Also translates directly to a character unit's scouting rank.
+			<li><strong>Leadership (characters) / Morale (units)</strong>: Charisma and courage. Used in combat to determine whether a unit will flee. A character's leadership acts as a bonus on <a href='/docs/combat#morale'>morale checks</a> on all units for armies he controls.
+			<li><strong>Craft (characters only)</strong>: Magical skill. Used in the casting of <a href='/docs/spells'>spells</a> as well as overcoming some obstacles in dungeons.
+			<li><strong>Scouting (units only)</strong>: Used by units when scouting other armies. Higher values give a better chance to spot enemy units.
+			</ul>
+			<p><strong>Checks</strong>: In a number of circumstances, a character or unit must make an <em>attribute check</em> which involves hitting a target difficulty number by taking a particular attribute's value and adding 1-6 randomly.</p>"
+	}
+
+	sections << {
+		title: 'Renown',
+		body: "<p>Characters may gain renown by <a href='/docs/combat#challenging_characters'>challenging</a> others to fight or accepting such a challenge. Heroes may also gain renown by exploring dungeons.</p>
+			<p>Renown has a number of uses such as inspiring loyalty in a city's population or rallying the troops, restoring a unit's health. It can also be lost by refusing a challenge when offered.</p>"
+	}
+
+	sections << {
+		title: 'Action Points',
+		icon: 'action_points.png',
+		body: "<p>Every character has a pool of action points used to perform actions. Different actions may cost 0 (free), 1 (quick), 2 (normal) or 4 (slow) action points to perform.</p>
+			<p>Characters regain 4 action points every cycle (8 in <a href='/docs/time'>Newbirth season</a>) up to a maximum of 40.</p>"
+	}
+
+	sections << {
+		title: 'Mana Points',
+		icon: 'mana_points.png',
+		body: "<p>Every character has a pool of mana points used to <a href='/docs/spells'>cast spells</a>. The exact cost in mana is either determined by the caster (thus scaling the effect of the spell) or depends on distance to the target (for scry and teleport spells).</p>
+			<p>Characters replenish mana points at the rate of 4 per cycle (8 in <a href='/docs/time'>Firelight season</a>) plus 2 for every lair or tower they control.</p>
+			<p>The maximum mana points for a character is 10 times their Craft rank, e.g. a Necromancer with a Craft rank of 10 can have a maximum of 100 mana points.</p>"
+	}
+%>
+<%=render partial: '/docs/template', locals: {title: 'How It All Works', url: 'how_it_all_works', sections: sections} %>

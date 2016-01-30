@@ -1,0 +1,31 @@
+<div class="page-header">
+	<h1>Immortals</h1>
+</div>
+<div id="spinner" ng-if="loadingImmortals">
+  <div class="hexdots-loader">
+    Loading...
+  </div>
+</div>
+
+<div class="content table-responsive well well-lg" ng-controller="PaginatedImmortalsCtrl">
+	<table ng-if="!loadingImmortals && immortals.length > 0" class="table table-striped">
+		<thead>
+			<tr>
+				<th class="non-mobile">Type</th>
+				<th>Name</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-animate="'animate'" ng-repeat="immortal in immortals">
+				<td class="non-mobile">{{immortal.type}}</td>
+				<td>{{immortal.name}}</td>
+			</tr>
+		</tbody>
+	</table>
+	<div ng-if="immortals && immortals.length == 0" class="well well-bg">
+		No immortals have risen yet.
+	</div>
+	<center>
+		<bgf-pagination url='immortals_url' url-params='immortals_params' collection='immortals' per-page="10" per-page-presets="" auto-presets="false" reload-page="reloadPage"></bgf-pagination>
+	</center>
+</div>

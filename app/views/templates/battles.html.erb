@@ -1,0 +1,100 @@
+<div class="page-header">
+	<h2 ng-if="battle">{{battle.title}}</h2>
+	<h1 ng-if="!battle">Battle Reports</h1>
+	<ul class="nav nav-tabs" ng-if="battle">
+	  <li role="presentation" class="pointer"><a class="pointer" ng-click="ChangeTab('events')">Events</a></li>
+	  <li role="presentation" class="pointer"><a class="pointer" ng-click="ChangeTab('attacker')">{{battle.attacker.name}} ({{battle.attacker.id}})</a></li>
+	  <li role="presentation" class="pointer"><a class="pointer" ng-click="ChangeTab('defender')">{{battle.defender.name}} ({{battle.defender.id}})</a></li>
+	</ul>
+</div>
+
+<div class="content" ng-if="battle">
+	<div class="panel panel-default" ng-if="battle.tab == 'events'">
+	  <div class="panel-body">
+	  	<p>
+		  	Battle fought at #{{battle.location.id}} in {{battle.location.terrain_display}}
+			<span ng-if="position.location.city">
+				at {{battle.location.city.name}} ({{battle.location.city.id}})
+			</span>
+			<span ng-if="position.location.tower">
+				near {{battle.location.tower.name}} ({{battle.location.tower.id}})
+			</span>
+			<span ng-if="position.location.lair">
+				near {{battle.location.lair.name}} ({{battle.location.lair.id}})
+			</span>
+			on {{battle.game_time.long_display}}. <strong>{{battle.winner}}</strong>. Defender lost {{battle.defender.units_lost}} unit{{battle.defender.units_lost == 1 ? '' : 's'}}. Attacker lost {{battle.attacker.units_lost}} unit{{battle.attacker.units_lost == 1 ? '' : 's'}}.
+		</p>
+	    <ul ng-bind-html="battle.summary"></ul>
+	  </div>
+	</div>
+	
+	<div class="panel panel-default" ng-if="battle.tab == 'attacker'">
+	  <table class="table table-striped">
+    	<thead>
+    		<tr>
+    			<th>Unit</th>
+    			<th>Tactic</th>
+    			<th>Health</th>
+    		</tr>
+    	</thead>
+    	<tbody ng-bind-html="battle.attacker.attacker_units_table">
+    	</tbody>
+      </table>
+	</div>
+
+	<div class="panel panel-default" ng-if="battle.tab == 'defender'">
+	   <table class="table table-striped">
+    	<thead>
+    		<tr>
+    			<th>Unit</th>
+    			<th>Tactic</th>
+    			<th>Health</th>
+    		</tr>
+    	</thead>
+    	<tbody ng-bind-html="battle.defender.defender_units_table">
+    	</tbody>
+       </table>
+	</div>
+</div>
+<div ng-if="!battle">
+	<div id="spinner" ng-if="loadingBattles">
+	  <div class="hexdots-loader">
+	    Loading...
+	  </div>
+	</div>
+
+	<div class="no-action-content well well-lg table-responsive" ng-controller="PaginatedBattlesCtrl">
+		<div ng-if="!loadingBattles && battles.length < 1" class="well well-bg">
+			No battles to report
+		</div>
+		<div class="panel panel-default">
+			<table ng-if="!loadingBattles" class="table table-striped">
+				<tbody>
+					<tr ng-animate="'animate'" ng-repeat="battle in battles">
+						<td><a ui-sref="user.battles({battleId: battle.id})">{{battle.title}})</a>
+							<br/>
+							<small>
+							at #{{battle.location.id}} in {{battle.location.terrain_display}}
+							<span ng-if="position.location.city">
+								at {{battle.location.city.name}} ({{battle.location.city.id}})
+							</span>
+							<span ng-if="position.location.tower">
+								near {{battle.location.tower.name}} ({{battle.location.tower.id}})
+							</span>
+							<span ng-if="position.location.lair">
+								near {{battle.location.lair.name}} ({{battle.location.lair.id}})
+							</span>
+							<span ng-if="!(position.location.city || position.location.tower || position.location.lair) && position.location.territory && position.location.territory.name">
+								in territory of {{battle.location.territory.name}} ({{battle.location.territory.id}})
+							</span>
+							on {{battle.game_time.long_display}}</small>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<center>
+			<bgf-pagination url='battles_url' url-params='battles_params' collection='battles' per-page="10" per-page-presets="" auto-presets="false" reload-page="reloadPage"></bgf-pagination>
+		</center>
+	</div>
+</div>

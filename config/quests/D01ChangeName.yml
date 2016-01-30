@@ -1,0 +1,22 @@
+description: 
+  completed: "Congratulations! You are now well on your way to becoming a real master of the universe."
+  failed: "Oh dear, it seems your lair has been lost! What happened sir?"
+  incomplete: "Your first task, master, is to change the name of your lair to own of your choosing. To do this, select your settlement from the drop down menu at the top then choose the 'Change Name' action in the toolbar (the one that looks like a pencil)."
+# next_quest:
+#   class: QuestClass
+#   template: template_name
+position: 
+  class: Settlement
+  finder: all
+property: 
+  name: name
+  any: true
+rewards: 
+  - 
+    xp: 1
+  - 
+    gold: 100
+status: 
+  completed: "Welcome to Myth Chronicles [Completed]"
+  failed: "Welcome to Myth Chronicles [Failed]"
+  incomplete: "Welcome to Myth Chronicles"

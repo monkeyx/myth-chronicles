@@ -1,0 +1,36 @@
+<div class="panel panel-default">
+	<div class="panel-heading"><strong>Permissions Granted</strong></div>
+	<table class="table table-condensed">
+		<thead ng-if="position.permission_granted.length > 0">
+			<tr>
+				<th>Army</th>
+				<th>Full</th>
+				<th>Pickup</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-animate="'animate'" ng-repeat="permission in position.permission_granted">
+				<td>
+					<span ng-if="permission.alliance">
+						{{permission.alliance.name}} ({{permission.alliance.id}})
+					</span>
+					<span ng-if="permission.position">
+						{{permission.position.name}} ({{permission.position.id}})
+					</span>
+				</td>
+				<td>
+					<span ng-if="permission.full"><i class="fa fa-check"></i></span>
+					<span ng-if="!permission.full"><i class="fa fa-times"></i></span>
+				</td>
+				<td>
+					<span ng-if="permission.item">
+						{{permission.item.name}} x {{permission.quantity}}
+					</span>
+				</td>
+			</tr>
+			<tr ng-if="position.permission_granted.length == 0">
+				<td colspan="3" class="text-center">No permissions have been granted.</td>
+			</tr>
+		</tbody>
+	</table>
+</div>

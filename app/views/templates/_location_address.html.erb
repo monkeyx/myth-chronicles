@@ -1,0 +1,19 @@
+<address>
+	#{{position.location.id}} in {{position.location.terrain_display}}
+	<span ng-if="position.army">
+		with <a ng-if="position.army.owner.id == position.id" ui-sref="user.position({posType: 'Army', posId: position.army.id})">{{position.army.name}}</a>
+		<span ng-if="position.army.owner.id != position.id">{{position.army.name}}</span>
+	</span>
+	<span ng-if="position.location.city">
+		at {{position.location.city.name}} ({{position.location.city.id}})
+	</span>
+	<span ng-if="position.location.tower">
+		near {{position.location.tower.name}} ({{position.location.tower.id}})
+	</span>
+	<span ng-if="position.location.lair">
+		near {{position.location.lair.name}} ({{position.location.lair.id}})
+	</span>
+	<span ng-if="!(position.location.city || position.location.tower || position.location.lair) && position.location.territory && position.location.territory.name">
+		in territory of {{position.location.territory.name}} ({{position.location.territory.id}})
+	</span>
+</address>

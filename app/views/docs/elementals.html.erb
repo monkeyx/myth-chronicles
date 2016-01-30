@@ -1,0 +1,36 @@
+<%
+	sections = []
+
+	def unit_stats(race)
+		Unit.new(race: race).race_stats_table
+	end
+
+	sections << {
+		title: 'Imp',
+		icon: 'items/imp.png',
+		body: "<p>The minions of the primal fire dimension are legion, willing servants of their Dragon masters. They are physically weak but being tiny and stealthy they have their uses. Enemies find their arrows burn up in an imp's fiery aura. Lairs in Deserts are capable of drawing them into this dimension.</p>" + unit_stats('Imp') +
+		"<p><strong>Legions</strong>: Imps are recruited at ten times the normal rate.</p>
+		<p><strong>Stealthy</strong>: Imps are stealthy and hard to spot.</p>
+		<p><strong>Fire Shield</strong>: Imps take half damage from ranged weapons.</p>"
+	}
+
+	sections << {
+		title: 'Serpent',
+		icon: 'items/serpent.png',
+		body: "<p>The writhing serpents of the deep blue Seas are favoured by the Dragons that make their homes in the depths. These natural swimmers are fast and resilient as well as being exceedingly difficult to spot until it is often too late.</p>" + unit_stats('Serpent') + 
+		"<p><strong>Swimming</strong>: Serpents are naturally capable of sea movement.</p>
+		<p><strong>Stealthy</strong>: Serpents are stealthy and hard to spot.</p>"
+	}
+
+	sections << {
+		title: 'Valkyrie',
+		icon: 'items/valkyrie.png',
+		body: "<p>These great winged woman-like creatures live in covens high up in the Mountains where occassionally a powerful Dragon will entice them to bring their furious wrath down upon mortals. They are as fast as they are resilient, making them a horror to behold. Even well-trained soldiers often flee at the sight of them in battle.</p>" + unit_stats('Valkyrie') + 
+		"<p><strong>Flying</strong>: Valkyrie are naturally capable of air movement. They cannot use siege equipment.</p>
+		<p><strong>Terrifying</strong>: Even units at full health must make morale checks when facing Valkyrie.</p>"
+	}
+%>
+<% content_for :overview do %>
+Elementals are recruited at <a href='/docs/settlements#lairs'>Lairs</a> to serve a <a href='/docs/characters#dragon'>Dragon</a>. These ancient creatures from lower dimensions have no use for items of this world: they will never use weapons, armour or mount beasts.
+<% end %>
+<%=render partial: '/docs/template', locals: {title: 'Elementals', url: 'elementals', sections: sections} %>

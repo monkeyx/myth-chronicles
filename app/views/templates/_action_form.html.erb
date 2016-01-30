@@ -1,0 +1,37 @@
+<div class="modal-content">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close" ng-click="cancel()"><span aria-hidden="true">&times;</span></button>
+      <h4 class="modal-title" id="actionModelLabel"><img class="icon" ng-src="/icons/actions/{{action.icon}}.png" title="{{action.display_name}}">&nbsp;{{action.display_name}}</h4>
+    </div>
+    <div class="modal-body">
+      <span ng-if="error" class="text-danger">
+        {{error}}
+      </span>
+      <form>
+        <div class="form-group" ng-repeat="param in action.params">
+          <label ng-if="!param.hide_label" for="{{param.name}}" class="control-label">{{param.display_name}}
+            &nbsp;&nbsp;<a ng-if="param.name == 'hex' || param.showHexButton" class="btn btn-sm btn-info" ng-click="mapToggle()"><i class="fa fa-globe"></i></a></label>
+          <input ng-if="param.type == 'string' && !param.hide_input" ng-model="param.value" type="text" class="form-control" id="{{param.name}}">
+          <input ng-if="param.type == 'integer' && !param.hide_input" ng-model="param.value" type="number" class="form-control" id="{{param.name}}">
+          <select ng-if="param.type == 'boolean' && !param.hide_input" ng-model="param.value" id="{{param.name}}" class="form-control">
+            <option value="true">Yes</option>
+            <option value="false">No</option>
+          </select>
+          <select ng-if="param.type == 'options' && !param.hide_input" ng-model="param.value" ng-change="actionOptionsUpdate(action.name)" id="{{param.name}}" class="form-control">
+            <option value=""></option>
+            <option ng-repeat="o in param.options" value="{{o.value}}">{{o.display}}</option>
+          </select>
+          <span ng-if="errors[param.name]" class="text-danger">
+            {{errors[param.name]}}
+          </span>
+        </div>
+        <div class="text-info note text-right" ng-bind-html="action.description">
+        </div>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-default" ng-click="cancel()">Close</button>
+      <button type="button" class="btn btn-primary" ng-click="submit()">Submit Action</button>
+    </div>
+  </div>
+</div>

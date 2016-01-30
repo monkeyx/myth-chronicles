@@ -1,0 +1,28 @@
+<div ng-if="position.permissions.length > 0" class="panel panel-default">
+	<div class="panel-heading"><strong>Permissions</strong></div>
+	<table class="table table-striped">
+		<thead>
+			<tr>
+				<th>Settlement</th>
+				<th>Full</th>
+				<th>Pickup</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-animate="'animate'" ng-repeat="permission in position.permissions">
+				<td>
+					{{permission.settlement.name}} ({{permission.settlement.id}})
+				</td>
+				<td>
+					<span ng-if="permission.full"><i class="fa fa-check"></i></span>
+					<span ng-if="!permission.full"><i class="fa fa-times"></i></span>
+				</td>
+				<td>
+					<span ng-if="permission.item">
+						{{permission.item.name}} x {{permission.quantity}}
+					</span>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>

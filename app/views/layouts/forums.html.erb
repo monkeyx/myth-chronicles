@@ -1,0 +1,13 @@
+<%=render partial: '/layouts/forums_header' %>
+
+  <body>
+    <%=render partial: '/layouts/forums_nav' %>
+
+    <div class="container-fluid">
+      <%= render partial: '/layouts/alerts' %>
+
+      <%= yield %>
+    </div>
+      
+  </body>
+</html>

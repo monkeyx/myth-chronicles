@@ -1,0 +1,39 @@
+<%
+	sections = []
+
+	sections << {
+		title: 'Achieving Immortality',
+		body: "<p>Each character has an end goal that will allow them to become immortal. They must meet the requirement listed below before they can do so:</p>
+		<table class='table table-striped'>
+			<tr>
+				<th>Hero</th>
+				<td>Must have equipped <a href='/docs/magical_items'>artefacts</a> in each available equipment slot.</td>
+			</tr>
+			<tr>
+				<th>Lord</th>
+				<td>Must lead an <a href='/docs/alliances'>alliance</a> with 10 <a href='/docs/settlements#cities'>capital cities</a> (not necessarily their own).</td>
+			</tr>
+			<tr>
+				<th>Necromancer</th>
+				<td>Must be at a Tower they own which contains 10,000 each of Humans, Elves, Dwarves, Goblins and Orcs.</td>
+			</tr>
+			<tr>
+				<th>Dragon</th>
+				<td>Must have 1,000,000 gold.</td>
+			</tr>
+		</table>
+		<p>The character must be at one of their own settlements when becoming immortal and in the case of Necromancers, this Tower must contain the items required for their transformation.</p>"
+	}
+
+	sections << {
+		title: 'Cataclysms',
+		body: "<p>When a character becomes immortal it comes at a heavy price for the world at large.</p>
+		<p>Not only are all armies and settlements of the character lost forever, a terrible disaster will befall the location they choose as their point of ascension.</p>
+		<p>This cataclysm may take the form of a massive volcanic eruption, tsuanami floods, wildfires or large meteor strike.</p>
+		<p>Such cataclysms usually mark the beginning of a new age in the world.</p>"
+	}
+%>
+<% content_for :overview do %>
+<p>The ultimate goal of every <a href='/docs/characters'>character</a> is to become immortal and be remembered forever in the <em>Pantheon of the Immortals</em>.</p>
+<% end %>
+<%=render partial: '/docs/template', locals: {title: 'Immortality & Cataclysms', url: 'immortality', sections: sections} %>

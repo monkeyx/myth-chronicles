@@ -1,0 +1,43 @@
+<ol class="breadcrumb">
+  <li><a href="/docs">Help Topics</a></li>
+  <li><a href="/docs/<%=url%>" class="active"><%=title%></a></li>
+</ol>
+
+<% overview = content_for(:overview) %>
+
+<% unless overview.blank? %>
+<div class="well well-bg">
+	<%=overview %>
+</div>
+<% end %>
+
+<% i = 0; open_div = false %>
+	<% sections.each do |section| %>
+<% if i % 2 == 0 %>
+<% open_div = true %>
+<div class="row">
+<% end %>
+	<div class="col-xs-12 col-md-6">
+		<a name="<%=section[:title].downcase.parameterize%>"></a>
+		<h2>
+			<% unless section[:icon].blank? %>
+			<img src="/icons/<%=section[:icon]%>" title="<%=section[:title]%>" class="icon">
+			<% end %>
+			<%=section[:title]%>
+		</h2>
+		<%=section[:body].html_safe%>
+	</div>
+<% if i % 2 == 1 %>
+<% open_div = false %>
+	</div>
+<% end %>
+	<% i += 1 %>
+	<% end %>
+
+<% if open_div %>
+	</div>
+<% end %>
+
+<hr/>
+
+<%=render partial: '/docs/footer' %>

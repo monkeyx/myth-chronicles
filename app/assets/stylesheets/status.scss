@@ -1,0 +1,35 @@
+#characterStatus {
+  position: fixed;
+  top: 50px;
+  left: 40px;
+  width: 80%;
+  margin-top: 5px;
+  margin-left: 50px;
+  z-index: 3;
+}
+
+#status-character {
+  
+}
+
+#status-gold {
+  text-shadow: 1px 1px #ffef00;
+}
+
+#status-mana-points {
+  text-shadow: 1px 1px #1ec8ff;
+}
+
+#status-action-points {
+  text-shadow: 1px 1px #228b22;
+}
+
+#statusBar {
+	border: 0px;
+	padding: 10px;
+}
+
+.span-separator {
+  padding-left: 3px;
+  padding-right: 3px;
+}

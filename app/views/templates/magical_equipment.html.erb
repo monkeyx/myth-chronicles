@@ -1,0 +1,45 @@
+<div ng-if="position.type == 'Character'" class="panel panel-default">
+	<div class="panel-heading"><strong>Magical Equipment</strong></div>
+	<table class="table table-striped">
+		<thead>
+			<tr>
+				<th>Slot</th>
+				<th>Item</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<th>
+					Weapon
+				</th>
+				<td>
+					<span ng-if="position.weapon">{{position.weapon.name}} ({{position.weapon.id}})</span>
+				</td>
+			</tr>
+			<tr>
+				<th>
+					Armour
+				</th>
+				<td>
+					<span ng-if="position.armour">{{position.armour.name}} ({{position.armour.id}})</span>
+				</td>
+			</tr>
+			<tr>
+				<th>
+					Ring
+				</th>
+				<td>
+					<span ng-if="position.ring">{{position.ring.name}} ({{position.ring.id}})</span>
+				</td>
+			</tr>
+			<tr>
+				<th>
+					Amulet
+				</th>
+				<td>
+					<span ng-if="position.amulet">{{position.amulet.name}} ({{position.amulet.id}})</span>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>

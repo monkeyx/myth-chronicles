@@ -1,0 +1,29 @@
+<div ng-if="position" class="panel panel-default" ng-controller="PaginatedMarketCtrl">
+	<div class="panel-heading"><strong>Market</strong></div>
+	<table ng-if="market && market.length > 0" class="table table-striped">
+		<thead>
+			<tr>
+				<th>Item</th>
+				<th>Buying</th>
+				<th>Selling</th>
+				<th>Price (gold)</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="m in market" ng-animate="animate">
+				<th>{{m.item}}</th>
+				<td>{{m.buying}}</td>
+				<td>{{m.selling}}</td>
+				<td>{{m.price}}</td>
+			</tr>
+		</tbody>
+	</table>
+	<div class="panel-body">
+		<center>
+		 	<bgf-pagination url='markets_url' url-params='markets_params' collection='market' per-page="10" per-page-presets="" auto-presets="false" reload-page="reloadPage"></bgf-pagination>
+		</center>
+		<div ng-if="!market || market.length < 1">
+			No items being bought or sold
+		</div>
+	</div>
+</div>

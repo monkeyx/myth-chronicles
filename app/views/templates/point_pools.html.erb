@@ -1,0 +1,53 @@
+<div ng-if="position.type == 'Character'" class="panel panel-default">
+	<div class="panel-heading"><strong>Point Pools</strong></div>
+	<table class="table table-striped">
+		<thead>
+			<tr>
+				<th>Points</th>
+				<th>Value</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<th>
+					Action
+				</th>
+				<td>
+					{{position.action_points}}
+				</td>
+			</tr>
+			<tr>
+				<th>
+					Mana
+				</th>
+				<td>
+					{{position.mana_points}}
+				</td>
+			</tr>
+			<tr>
+				<th>
+					Experience
+				</th>
+				<td>
+					{{position.experience_points}}
+				</td>
+			</tr>
+			<tr>
+				<th>
+					Gold
+				</th>
+				<td>
+					{{position.gold}}
+				</td>
+			</tr>
+			<tr>
+				<th>
+					Renown
+				</th>
+				<td>
+					{{position.renown}}
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>

@@ -1,0 +1,37 @@
+<%
+	sections = []
+
+	sections << {
+		title: 'Guild Production',
+		body: "<table class='table table-striped'>
+			<thead>
+				<tr>
+					<th></th>
+					<th>Trade Good</th>
+					<th>Raw Materials</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<th><img src='/icons/items/artwork.png'></th>
+					<th>Artwork</th>
+					<td>#{Item.named('Artwork').first.raw_materials_description}</td>
+				</tr>
+				<tr>
+					<th><img src='/icons/items/clothes.png'></th>
+					<th>Clothes</th>
+					<td>#{Item.named('Clothes').first.raw_materials_description}</td>
+				</tr>
+				<tr>
+					<th><img src='/icons/items/luxuries.png'></th>
+					<th>Luxuries</th>
+					<td>#{Item.named('Luxuries').first.raw_materials_description}</td>
+				</tr>
+			</tbody>
+		</table>"
+	}
+%>
+<% content_for :overview do %>
+<p>Trade goods are produced in <a href='/docs/settlements#guilds'>Guilds</a> or using <a href='/docs/spells#ritual'>ritual magic</a> and distributed to the population of <a href='/docs/settlements#cities'>cities</a> to improve their loyalty.</p>
+<% end %>
+<%=render partial: '/docs/template', locals: {title: 'Trade Goods', url: 'trade_goods', sections: sections} %>

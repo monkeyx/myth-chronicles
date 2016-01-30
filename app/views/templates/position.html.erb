@@ -1,0 +1,90 @@
+<div class="page-header" ng-if="position">
+	<h1>{{position.name}} ({{position.id}}) <small>{{position.subtype}}</small></h1>
+	<%=render partial: '/templates/buttons' %>
+</div>
+
+<div class="content well well-lg">
+	<div id="spinner" ng-if="!position">
+	  <div class="hexdots-loader">
+	    Loading...
+	  </div>
+	</div>
+
+	<div class="row" ng-if="position">
+		<div class="col-xs-12">
+			<%=render partial: '/templates/location' %>
+		</div>
+	</div>
+
+	<div class="row" ng-if="position && position.type == 'Character'">
+		<div class="col-xs-12">
+			<ng-include src="'/t/quests'"></ng-include>
+		</div>
+	</div>
+
+	<div class="row" ng-if="position">
+		<div class="col-xs-12">
+			<ng-include src="'/t/events'"></ng-include>
+		</div>
+	</div>
+
+	<div class="row" ng-if="position && position.type == 'Character'">
+		<div class="col-xs-12 col-md-6 col-lg-3">
+			<ng-include src="'/t/character_attributes'" onload="position.type == 'Character'"></ng-include>
+		</div>
+		<div class="col-xs-12 col-md-6 col-lg-3">
+			<ng-include src="'/t/point_pools'" onload="position.type == 'Character'"></ng-include>
+		</div>
+		<div class="col-xs-12 col-md-6 col-lg-3">
+			<ng-include src="'/t/magical_equipment'" onload="position.type == 'Character'"></ng-include>
+		</div>
+	</div>
+
+	<div class="row" ng-if="position && position.type == 'Army'">
+		<div class="col-xs-12">
+			<ng-include src="'/t/units'" onload="position.type == 'Army'"></ng-include>
+		</div>
+	</div>
+	<div class="row" ng-if="position && position.type == 'Army'">
+		<div class="col-xs-12">
+			<ng-include src="'/t/movement'" onload="position.type == 'Army'"></ng-include>
+		</div>
+	</div>
+
+	<div class="row" ng-if="position && position.type == 'Settlement'">
+		<div class="col-xs-12 col-md-6">
+			<ng-include src="'/t/defence'" onload="position.type == 'Settlement' && position.subtype != 'Guild'"></ng-include>
+		</div>
+		<div class="col-xs-12 col-md-6">
+			<ng-include src="'/t/population'" onload="position.type == 'Settlement' && position.subtype == 'City'"></ng-include>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-xs-12">
+			<ng-include src="'/t/items'"></ng-include>
+		</div>
+	</div>
+
+	<div class="row" ng-if="position && position.type == 'Settlement'">
+		<div class="col-xs-12 col-md-6">
+			<ng-include src="'/t/market'" onload="position.type == 'Settlement'"></ng-include>
+		</div>
+		<div class="col-xs-12 col-md-6">
+			<ng-include src="'/t/permissions_granted'" onload="position.type == 'Settlement'"></ng-include>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-xs-12">
+			<ng-include src="'/t/permissions'"></ng-include>
+		</div>
+	</div>
+
+</div>
+
+<script type="text/ng-template" id="actionForm.html">
+  <%=render partial: '/templates/action_form' %>
+</script>
+
+

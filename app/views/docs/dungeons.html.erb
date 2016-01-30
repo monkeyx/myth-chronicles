@@ -1,0 +1,37 @@
+<%
+	sections = []
+
+	sections << {
+		title: 'Exploration',
+		body: "<p>Each time a Hero tries to explore a dungeon he will delve deeper into the dungeon, if possible, facing greater challenges in the pursuit of greater rewards.</p>
+		<p>
+		Dungeons have a maximum number of levels which can be explored.
+		</p>
+		<p>Once the maximum level is reached, the Hero will only explore the toughest level each time.</p>"
+	}
+
+	sections << {
+		title: 'Challenges',
+		body: "<p>Each time a level of a dungeon is explored a different type of challenge is encountered:</p>
+		<table class='table table-striped'>
+			<tr>
+				<th>Fight</th>
+				<td>A monster must be defeated by the Hero's Strength.</td>
+			</tr>
+			<tr>
+				<th>Puzzle</th>
+				<td>The Hero must overcome a mental challenge by applying their Craft.</td>
+			</tr>
+			<tr>
+				<th>Trap</th>
+				<td>A devious trap that will require a Hero's Cunning to overcome.</td>
+			</tr>
+		</table>
+		<p><strong>Success</strong>: Overcoming a challenge leads to greater rewards dependent on the level being explored in the dungeon.</p>
+		<p><strong>Failure</strong>: Failing to meet a challenge triggers an immediate <a href='/docs/how_it_all_works#attributes'>attribute check</a> on the Hero's Armour Rating with the difficulty determined by the level of the dungeon explored. Failing the check results in the Hero's incapication or death.</p>"
+	}
+%>
+<% content_for :overview do %>
+<p>Dungeons are found all over the <a href='/docs/maps_and_terrain'>map</a> and can be explored only by <a href='/docs/characters#hero'>Heroes</a>.</p>
+<% end %>
+<%=render partial: '/docs/template', locals: {title: 'Dungeons', url: 'dungeons', sections: sections} %>

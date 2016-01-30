@@ -1,0 +1,23 @@
+description: 
+  completed: "This is the completed description text"
+  failed: "This is the failed description text text"
+  incomplete: "This is the incomplete description text"
+next_quest:
+  class: QuestClass
+  template: template_name
+position: 
+  class: PositionClass
+  finder: first
+rewards: 
+  - 
+    item: 
+      name: Wood
+      quantity: 1
+  - 
+    xp: 100
+  - 
+    gold: 1
+status: 
+  completed: "This is the completed status text"
+  failed: "This is the failed status text"
+  incomplete: "This is the incomplete status text"

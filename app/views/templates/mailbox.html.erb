@@ -1,0 +1,112 @@
+<div class="page-header">
+	<h1>{{conversation ? conversation.subject : (composeFormVisible ? 'Compose Message' : 'Messages')}}</h1>
+	<div class="row" style="padding-bottom: 5px;">
+		<div class="btn-group col-xs-12" role="group" aria-label="...">
+			<button type="button" class="btn btn-sm btn-default" ng-click="toggleComposeForm()">
+				<span ng-if="!composeFormVisible"><i class="fa fa-pencil-square"></i>&nbsp;Compose</span><span ng-if="composeFormVisible">Back</span>
+			</button>
+			<button type="button" class="btn btn-sm btn-danger" ng-if="conversation" ng-click="trashConversation()">
+				<i class="fa fa-trash"></i>&nbsp;Trash
+			</button>
+		</div>
+	</div>
+</div>
+<div id="spinner" ng-if="loadingMailbox">
+  <div class="hexdots-loader">
+    Loading...
+  </div>
+</div>
+<div class="content well">
+	<div class="alert alert-danger" role="alert" ng-show="error">
+	{{error}}
+	<button type="button" class="close" ng-click="hideAlert()">&times;</button>
+	</div>
+	<div class="alert alert-info" role="alert" ng-show="notice">
+	{{notice}}
+	<button type="button" class="close" ng-click="hideAlert()">&times;</button>
+	</div>
+	<div class="row" ng-if="conversation">
+		<div class="col-xs-12 col-md-8 panel panel-default">
+			<div class="message" ng-repeat="message in conversation.messages">
+				<blockquote>
+					{{message.body}}
+					<footer>{{message.date}} <cite>{{message.sender.name}}</cite></footer>
+				</blockquote>
+			</div>
+		</div>
+		<div class="col-xs-12 col-md-4" ng-if="!sendingMessage">
+		  <form ng-submit="submitMessage(messageForm)" role="form">
+		  	<div class="form-group">
+		      <textarea rows="10" cols="40" 
+		      		 name="body"
+		             id="body"
+		             ng-model="messageForm.body"
+		             required="required"
+		             class="form-control">
+		      </textarea>
+		    </div>
+		    <button type="submit" class="btn btn-primary btn-lg">Reply</button>
+		  </form>
+		</div>
+	</div>
+	<div class="row">
+		<div ng-if="composeFormVisible && !conversation && !sendingMessage" class="col-xs-12 panel panel-default">
+		  <form ng-submit="submitMessage(messageForm)" role="form">
+		  	<div class="form-group">
+		  		<label for="recipient">To</label>
+		  		<select name="recipient" ng-model="messageForm.character_id" required="required" class="form-control">
+		  			<option ng-repeat="r in recipients" ng-value="r.id">{{r.name}}</option>
+		  		</select>
+		  	</div>
+		    <div class="form-group">
+		      <label for="subject">Subject</label>
+		      <input type="text"
+		             name="subject"
+		             id="subject"
+		             ng-model="messageForm.subject"
+		             required="required"
+		             class="form-control">
+		    </div>
+		    <div class="form-group">
+		      <label for="body">Body</label>
+		      <textarea rows="10" cols="40" 
+		      		 name="body"
+		             id="body"
+		             ng-model="messageForm.body"
+		             required="required"
+		             class="form-control">
+		      </textarea>
+		    </div>
+		    <button type="submit" class="btn btn-primary btn-lg">Send</button>
+		  </form>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-xs-12 panel panel-default" ng-if="!conversation_id && !composeFormVisible">
+			<div class="table-responsive" ng-controller="PaginatedMessagesCtrl">
+				<table ng-if="!loadingMailbox && messages.length > 0" class="table table-striped">
+					<thead>
+						<tr>
+							<th>Sender</th>
+							<th>Subject</th>
+							<th>Date</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-animate="'animate'" ng-repeat="message in messages">
+							<td width="20%">{{message.sender.name}}</td>
+							<td width="65%"><a class="pointer" ng-click="showConversation(message.id)">{{message.subject}}</a></td>
+							<td width="15%">{{message.date}}</td>
+						</tr>
+					</tbody>
+				</table>
+				<div ng-if="messages && messages.length == 0" class="well well-bg">
+					No messages received yet.
+				</div>
+				<center>
+					<bgf-pagination url='messages_url' url-params='messages_params' collection='messages' per-page="10" per-page-presets="" auto-presets="false" reload-page="reloadPage"></bgf-pagination>
+				</center>
+			</div>
+		</div>
+	</div>
+</div>

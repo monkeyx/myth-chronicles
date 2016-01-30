@@ -1,0 +1,52 @@
+<%
+	sections = []
+
+	sections << {
+		title: 'Hexes',
+		body: "The world is mapped using hexagonal tiles identified by their axial coordinates (x and y). Each hex has a terrain type and may be part of the territory of a <a href='/docs/settlements'>settlement</a>. It may have a <a href='/docs/dungeons'>dungeon</a> and <a href='/docs/armies'>armies</a> situated upon it."
+	}
+
+	sections << {
+		title: 'Movement',
+		body: "<p>Movement is along 6-points of the compass: north, north-east, south-east, south, south-west and north-west. Movement by armies generally costs <a href='/docs/how_it_all_works#action_points'>action points</a>. Some <a href='/docs/characters'>characters</a> can cast the <a href='/docs/spells#teleport'>teleport spell</a> to move directly to a hex.</p> 
+		<p>Movement can be restricted by difficult or impassable terrain or may require boats to traverse.</p>"
+	}
+
+	sections << {
+		title: 'Terrain',
+		body: "The following terrain types exist:<ul>#{Terrain::ALL_TERRAIN.map{|t| "<li>#{t}</li>"}.join("\n")}</ul>"
+	}
+
+	sections << {
+		title: 'Difficult Terrain',
+		body: "Some terrain make travel across the hex difficult and thus cost double the normal <a href='/docs/how_it_all_works#action_points'>action points</a> if moving by land:<ul>#{Terrain::DIFFICULT_TERRAIN.map{|t| "<li>#{t}</li>"}.join("\n")}</ul>
+			<p>Additionally, during the <a href='/docs/time#seasons'>Coldhearth season</a> all terrain is made difficult.</p>"
+	}
+
+	sections << {
+		title: 'Defensive Terrain',
+		body: "Forests, Hills, Mountains and Rivers can be used by <a href='/docs/armies'>armies</a> to double their defences in <a href='/docs/combat'>combat</a>."
+	}
+
+	sections << {
+		title: 'Impassable Terrain',
+		body: "A few terrain types are so difficult that they cannot be traversed by normal army movement by land:<ul>#{Terrain::IMPASSABLE_TERRAIN.map{|t| "<li>#{t}</li>"}.join("\n")}</ul>"
+	}
+
+	sections << {
+		title: 'Water',
+		body: "An army equipped with <a href='/docs/vehicles_etc#boats'>boats</a> or <a href='/docs/armies#units'>units</a> of natural swimmers can travel across water hexes at a normal cost of <a href='/docs/how_it_all_works#action_points'>action points</a>:<ul>#{Terrain::WATER_TERRAIN.map{|t| "<li>#{t}</li>"}.join("\n")}</ul>"
+	}
+
+	sections << {
+		title: 'Territory',
+		body: "<a href='/docs/settlements'>Settlements</a> claim the hexes they are situated upon and those around them as their own territory. The spread of their territory depends on the type:
+		<ul>
+		<li><a href='/docs/settlements#cities'>Cities</a> claim more territory as they grow in size starting at just the hex they are situated upon, for a tiny hamlet, to all hexes in a radius of 3 for a capital city.
+		<li><a href='/docs/settlements#towers'>Towers</a> claim the hexes immediately around them only.
+		<li><a href='/docs/settlements#lairs'>Lairs</a> claim a 5 hex radius as their own. Few want to live near a dragons lair.
+		</ul>
+		<p>Claimed territory cannot be built upon by others and in the case of cities, the territory determines what resources are produced every cycle.</p>"
+	}
+%>
+<%=render partial: '/docs/template', locals: {title: 'Maps & Terrain', url: 'maps_and_terrain', sections: sections} %>

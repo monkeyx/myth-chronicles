@@ -1,0 +1,134 @@
+<%
+	sections = []
+
+	sections << {
+		title: 'Hero',
+		icon: 'hero.png',
+		body: "<p>Heroes recruit <a href='/docs/beasts'>beasts</a> at their <a href='/docs/settlements#guilds'>guilds</a>. They alone can explore <a href='/docs/dungeons'>dungeons</a> and they can also directly recruit <a href='/docs/humanoids'>humanoids</a> as an action.</p>
+		<table class='table table-striped'>
+			<thead>
+				<tr>
+					<th>Strength</th>
+					<th>Armour</th>
+					<th>Speed</th>
+					<th>Leadership</th>
+					<th>Cunning</th>
+					<th>Craft</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>7</td>
+					<td>7</td>
+					<td>5</td>
+					<td>5</td>
+					<td>5</td>
+					<td>3</td>
+				</tr>
+			</tbody>
+		</table>
+		<p><strong>Known Spells:</strong> Bless, Heal and Teleport.</p>
+		<p><strong>Magical Items Usable:</strong> All.</p>
+		"
+	}
+
+	sections << {
+		title: 'Lord',
+		icon: 'lord.png',
+		body: "<p>Lords recruit <a href='/docs/humanoids'>humanoids</a> in <a href='/docs/settlements#cities'>cities</a> they control. They alone can form and lead <a href='/docs/alliances'>alliances</a>.</p>
+		<table class='table table-striped'>
+			<thead>
+				<tr>
+					<th>Strength</th>
+					<th>Armour</th>
+					<th>Speed</th>
+					<th>Leadership</th>
+					<th>Cunning</th>
+					<th>Craft</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>5</td>
+					<td>5</td>
+					<td>3</td>
+					<td>7</td>
+					<td>7</td>
+					<td>3</td>
+				</tr>
+			</tbody>
+		</table>
+		<p><strong>Known Spells:</strong> Bless and Heal.</p>
+		<p><strong>Magical Items Usable:</strong> Armour, Weapons and Amulets.</p>
+		"
+	}
+
+	sections << {
+		title: 'Necromancer',
+		icon: 'necromancer.png',
+		body: "<p>Necromancers recruit <a href='/docs/undead'>undead</a> in <a href='/docs/settlements#towers'>towers</a> they build.</p>
+		<table class='table table-striped'>
+			<thead>
+				<tr>
+					<th>Strength</th>
+					<th>Armour</th>
+					<th>Speed</th>
+					<th>Leadership</th>
+					<th>Cunning</th>
+					<th>Craft</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>3</td>
+					<td>3</td>
+					<td>3</td>
+					<td>3</td>
+					<td>5</td>
+					<td>10</td>
+				</tr>
+			</tbody>
+		</table>
+		<p><strong>Known Spells:</strong> Heal, Ritual, Scry and Teleport.</p>
+		<p><strong>Magical Items Usable:</strong> Weapons, Amulets and Rings.</p>
+		"
+	}
+
+	sections << {
+		title: 'Dragon',
+		icon: 'dragon.png',
+		body: "<p>Dragons recruit <a href='/docs/elementals'>elementals</a> in their <a href='/docs/settlements#lairs'>lairs</a>.</p>
+		<table class='table table-striped'>
+			<thead>
+				<tr>
+					<th>Strength</th>
+					<th>Armour</th>
+					<th>Speed</th>
+					<th>Leadership</th>
+					<th>Cunning</th>
+					<th>Craft</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>10</td>
+					<td>10</td>
+					<td>5</td>
+					<td>3</td>
+					<td>3</td>
+					<td>5</td>
+				</tr>
+			</tbody>
+		</table>
+		<p><strong>Known Spells:</strong> Ritual and Scry.</p>
+		<p><strong>Magical Items Usable:</strong> Amulets and Rings.</p>
+		"
+	}
+%>
+<% content_for :overview do %>
+<p>Each player controls one character to represent them in the world. There are four different character types each suited to different styles of playing and aiming towards different types of <a href='/docs/immortality'>Immortality</a>. All characters have a common set of <a href='/docs/how_it_all_works#attributes'>attributes</a> and may own <a href='/docs/armies'>armies</a> as well as one type of <a href='/docs/settlements'>settlement</a>. Each character is also represented as a <a href='/docs/armies'>unit in an army</a>.</p>
+<p><strong>Inventory</strong>: Characters can carry and use <a href='/docs/magical_items'>magical items</a> only.</p>
+<p><strong>Incapacitation &amp; Death</strong>: When a character's unit is reduced to 0% health, the character is  incapacitated and sent back to one of their settlements to recover. However, if the character controls no settlements, it is killed.</p>
+<p>See also <a href='/docs/how_it_all_works#action_points'>action points</a> and <a href='/docs/how_it_all_works#mana_points'>mana points</a>.</p>
+<% end %>
+<%=render partial: '/docs/template', locals: {title: 'Characters', url: 'characters', sections: sections} %>

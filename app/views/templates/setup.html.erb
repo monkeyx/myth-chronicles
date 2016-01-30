@@ -1,0 +1,108 @@
+<div class="page-header">
+	<h1>Character Creation</h1>
+</div>
+
+<div class="content well well-lg">
+	<p class="lead" ng-if="setupInProgress">In progress...</p>
+	<div id="spinner" ng-if="setupInProgress || loadingGames">
+	  <div class="hexdots-loader">
+	    Setting up user...
+	  </div>
+	</div>
+
+	<span ng-if="error" class="text-danger">
+	{{error}}
+	</span>
+
+	<div ng-if="!(setupInProgress || loadingGames)">
+		<h2 class="sub-header">1. Choose Game</h2>
+		<div class="well well-lg">
+			<div ng-if="setup.showGame()">
+				<p ng-if="games && games.length < 1" class="text-danger">
+					No games available at present. Please contact the <a href="mailto: gm@mythchronicles.com?subject=Next+Available+Game">the GM</a> to find out when the next game will open.
+				</p>
+				<table class="table" ng-if="games && games.length > 0">
+					<thead>
+						<tr>
+							<th></th>
+							<th>Game</th>
+							<th>Cycle Frequency <%=help_tip("How quickly resources are generated, characters replenish their point pools and time moves forward in the game")%></th>
+							<th>Map</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="g in games">
+							<td>
+								<input type="radio" ng-model="setup.game" value="{{g.id}}" ng-change="gameSelected(g)">
+							</td>
+							<td>
+								{{g.name}}
+							</td>
+							<td>
+								Every {{g.cycle_frequency == 1 ? 'hour' : g.cycle_frequency + ' hours'}}
+							</td>
+							<td>
+								<a href="/map/{{g.id}}" target="_world_map">
+									{{g.map_size}} x {{g.map_size}}
+								</a>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div ng-if="game">
+				{{game.name}}
+			</div>
+		</div>
+
+		<h2 class="sub-header">2. Choose Character</h2>
+		<div class="well well-lg" ng-if="setup.showCharacterType() || setup.character_type">
+			<div class="row" ng-if="setup.showCharacterType()">
+				<div class="col-xs-12 col-md-6 col-lg-3" ng-if="game.available_spaces.hero">
+					<h3>Hero</h3>
+					<img class="pointer" src="/icons_original/hero.png" width="120" height="120" uib-tooltip="High Strength and Armour. May use all magical items. Can cast Bless, Heal and Teleport spells." ng-click="selectCharacterType('Hero')">
+					<p>Heroes are explorers of dungeons, tamers of beasts and guild masters.
+					</p>
+				</div>
+				<div class="col-xs-12 col-md-6 col-lg-3" ng-if="game.available_spaces.lord">
+					<h3>Lord</h3>
+					<img class="pointer" src="/icons_original/lord.png" width="120" height="120" uib-tooltip="High Leadership and Cunning. May use magical armour, weapons and amulets. Can cast Bless and Heal spells." ng-click="selectCharacterType('Lord')">
+					<p>Lords are masters of humanoid cities and leaders of alliances.
+					</p>
+				</div>
+				<div class="col-xs-12 col-md-6 col-lg-3" ng-if="game.available_spaces.necromancer">
+					<h3>Necromancer</h3>
+					<img class="pointer" src="/icons_original/necromancer.png" width="120" height="120" uib-tooltip="Legendary Craft, May use magical weapons, amulets and rings. Can cast Heal, Ritual, Scry and Teleport spells." ng-click="selectCharacterType('Necromancer')">
+					<p>Necromancers are raisers of the dead and the most skilled spellcasters.
+					</p>
+				</div>
+				<div class="col-xs-12 col-md-6 col-lg-3" ng-if="game.available_spaces.dragon">
+					<h3>Dragon</h3>
+					<img class="pointer" src="/icons_original/dragon.png" width="120" height="120" uib-tooltip="Legendary Strength and Armour. May use magical amulets and rings. Can cast Ritual and Scry spells." ng-click="selectCharacterType('Dragon')">
+					<p>Dragons are fearsome flying monsters, cunning artificers supported by elemental creatures.
+					</p>
+				</div>
+			</div>
+			<div ng-if="setup.character_type">
+				{{setup.character_type}}
+			</div>
+		</div>
+
+		<h2 class="sub-header">3. Name Your Character</h2>
+		<div class="well well-lg" ng-if="setup.showName() || setup.name">
+			<div class="form-group">
+				<input type="text" class="form-control input-lg" ng-model="setup.name">
+				<span id="helpBlock" class="help-block">Minimum of 3 characters. Offensive names may be changed.</span>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-xs-6 text-left">
+				<button type="button" class="btn btn-default" ng-if="setup.game" ng-click="back()">Back</button>
+			</div>
+			<div class="col-xs-6 text-right">
+				<button type="button" class="btn btn-primary" ng-if="setup.ready()" ng-click="submit()">Create</button>
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,136 @@
+<%
+	sections = []
+
+	def vehicle_table(name)
+		item = Item.named(name).first
+
+		table = "<table class='table table-striped'>
+			<tr>
+				<th>Raw Materials</th>
+				<td>#{item.raw_materials_description}</td>
+			</tr>"
+
+		if item.air_transport_capacity > 0
+			table = table + "
+			<tr>
+				<th>Air Transport Capacity</th>
+				<td>#{item.air_transport_capacity}</td>
+			</tr>"
+		end
+
+		if item.sea_transport_capacity > 0
+			table = table + "
+			<tr>
+				<th>Sea Transport Capacity</th>
+				<td>#{item.sea_transport_capacity}</td>
+			</tr>"
+		end
+
+		if item.land_transport_capacity > 0
+			table = table + "
+			<tr>
+				<th>Land Transport Capacity</th>
+				<td>#{item.land_transport_capacity}</td>
+			</tr>"
+		end
+
+		table + "</table>"
+	end
+
+	def siege_equipment_table(name)
+		item = Item.named(name).first
+
+		table = "<table class='table table-striped'>
+			<tr>
+				<th>Raw Materials</th>
+				<td>#{item.raw_materials_description}</td>
+			</tr>
+			<tr>
+				<th>Siege Effectiveness</th>
+				<td>#{item.siege_effectiveness}</td>
+			</tr>
+			<tr>
+				<th colspan='2' class='text-center'>Unequipped</th>
+			</tr>"
+
+		if item.air_transport_capacity > 0
+			table = table + "
+			<tr>
+				<th>Air Transport Capacity</th>
+				<td>#{item.air_transport_capacity}</td>
+			</tr>"
+		else
+			table = table + "
+			<tr>
+				<th>Air Transport Required</th>
+				<td>#{item.air_transport_capacity.abs}</td>
+			</tr>"
+		end
+
+		if item.sea_transport_capacity > 0
+			table = table + "
+			<tr>
+				<th>Sea Transport Capacity</th>
+				<td>#{item.sea_transport_capacity}</td>
+			</tr>"
+		else
+			table = table + "
+			<tr>
+				<th>Sea Transport Required</th>
+				<td>#{item.sea_transport_capacity.abs}</td>
+			</tr>"
+		end
+
+		if item.land_transport_capacity > 0
+			table = table + "
+			<tr>
+				<th>Land Transport Capacity</th>
+				<td>#{item.land_transport_capacity}</td>
+			</tr>"
+		else
+			table = table + "
+			<tr>
+				<th>Land Transport Required</th>
+				<td>#{item.land_transport_capacity.abs}</td>
+			</tr>"
+		end
+		table + "</table>"
+	end
+
+	sections << {
+		title: 'Boat',
+		icon: 'items/boat.png',
+		body: vehicle_table('Boat')
+	}
+
+	sections << {
+		title: 'Wagon',
+		icon: 'items/wagon.png',
+		body: vehicle_table('Wagon')
+	}
+
+	sections << {
+		title: 'Ladders',
+		icon: 'items/ladder.png',
+		body: siege_equipment_table('Ladders')
+	}
+
+	sections << {
+		title: 'Siege Tower',
+		icon: 'items/siege_tower.png',
+		body: siege_equipment_table('Siege Tower')
+	}
+
+	sections << {
+		title: 'Trebuchet',
+		icon: 'items/trebuchet.png',
+		body: siege_equipment_table('Trebuchet')
+	}
+%>
+<% content_for :overview do %>
+<p>Vehicles and siege equipment are produced in <a href='/docs/settlements'>settlements</a> from raw <a href='/docs/resources'>resources</a> or by <a href='/docs/spells#ritual'>ritual magic</a>.</p>
+<p>All <a href='/docs/armies'>army units</a> may use vehicles to increase their ability to transport items across land or sea.</p>
+<p>Siege equipment is used to overcome the <a href='/docs/settlements#defences'>defences</a> of settlements.</p>
+<p>A unit may only use one vehicle and one siege equipment at a time. Flying units cannot use siege equipment.</p>
+<% end %>
+<%=render partial: '/docs/template', locals: {title: 'Vehicles & Siege Equipment', url: 'vehicles_etc', sections: sections} %>

@@ -1,0 +1,33 @@
+<% content_for(:nav_left) do %>
+<li>
+	<p class="navbar-text">
+		<%=image_tag('loading.gif', {id: 'loading-indicator', 'ng-if': 'showLoadingIndicator'})%>
+	</p>
+</li>
+<li id="game-menu" ng-if="loggedIn" role="presentation" class="dropdown" uib-dropdown>
+	<a class="dropdown-toggle pointer" uib-dropdown-toggle>
+      {{game.name}} <span class="caret"></span>
+    </a>
+    <ul class="dropdown-menu" uib-dropdown-menu>
+    	<li><a class="pointer" ui-sref="user.alliances"><i class="fa fa-link"></i>&nbsp;Alliances</a></li>
+    	<li><a class="pointer" ui-sref="user.immortals"><i class="fa fa-star-o"></i>&nbsp;Immortals</a></li>
+    </ul>
+</li>
+<% end %>
+<% content_for(:nav_right) do %>
+<li ng-if="!loggedIn"><a class="pointer" ui-sref="login"><i class="fa fa-sign-in"></i>&nbsp;Sign in</a></li>
+<li ng-if="!loggedIn"><%=link_to("<i class=\"fa fa-user-plus\"></i>&nbsp;Sign Up".html_safe, new_user_registration_path, class: 'pointer')%></li>
+<li ng-if="loggedIn"><a class="pointer" ng-click='signOut()'><i class="fa fa-sign-out"></i>&nbsp;Sign out</a></li>
+<% end %>
+
+<div id="main" ui-view></div>
+
+<cc-preload-image cc-filenames='[<% @preload_images.each do |img| %>"<%=img.html_safe%>",<% end %>"user"]' cc-path="/icons"></cc-preload-image>
+
+<%=render partial: '/home/character_status' %>
+
+<%=render partial: '/home/action_queue' %>
+
+<%=render partial: '/home/map' %>
+
+<%=render partial: '/home/message_log' %>

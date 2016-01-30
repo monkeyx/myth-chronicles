@@ -1,0 +1,36 @@
+<div class="page-header">
+	<h1>Alliances</h1>
+</div>
+<div id="spinner" ng-if="loadingAlliances">
+  <div class="hexdots-loader">
+    Loading...
+  </div>
+</div>
+<div class="content well well-lg table-responsive" ng-controller="PaginatedAlliancesCtrl">
+	<table ng-if="!loadingAlliances && alliances.length > 0" class="table table-striped">
+		<thead>
+			<tr>
+				<th>Name</th>
+				<th class="non-mobile">Leader</th>
+				<th class="non-mobile">Members</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-animate="'animate'" ng-repeat="alliance in alliances">
+				<td>{{alliance.name}}</td>
+				<td class="non-mobile">{{alliance.leader.name}}</td>
+				<td class="non-mobile">
+					<span ng-repeat="member in alliance.members">
+						| {{member.name}}
+					</span>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	<div ng-if="alliances && alliances.length == 0" class="well well-lg">
+		No alliances have been formed yet.
+	</div>
+	<center>
+		<bgf-pagination url='alliances_url' url-params='alliances_params' collection='alliances' per-page="10" per-page-presets="" auto-presets="false" reload-page="reloadPage"></bgf-pagination>
+	</center>
+</div>

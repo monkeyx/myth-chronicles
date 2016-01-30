@@ -1,0 +1,93 @@
+<%
+	sections = []
+
+	sections << {
+		title: 'Cities',
+		icon: 'city.png',
+		body: "<p>Cities are owned by <a href='/docs/characters#lords'>Lords</a>. They are built on Plains, Forests, Hills, Barren, Scrublands, Wastelands and Mountain.</p>
+		<p><strong>Formation Costs</strong>: 10 <a href='/docs/humanoids'>humanoids</a> of the appropriate type for the terrain plus 500 wood and 500 stone.</p>
+		<p><strong>Population</strong>: A city's population can be expanded with humanoids of the appropriate race. The size of the population affects the city's production of resources and recruitment as well as its the radius of its territory.</p>
+		<table class='table table-striped'>
+			<thead>
+				<tr><th>City Size</th><th>Population</th><th>Production Rate</th><th>Territory Radius</th></tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>Hamlet</td>
+					<td>10 - 99</td>
+					<td>x1</td>
+					<td>0 hexes</td>
+				</tr>
+				<tr>
+					<td>Village</td>
+					<td>100 - 999</td>
+					<td>x2</td>
+					<td>1 hex</td>
+				</tr>
+				<tr>
+					<td>Town</td>
+					<td>1,000 - 9,999</td>
+					<td>x5</td>
+					<td>2 hexes</td>
+				</tr>
+				<tr>
+					<td>Capital</td>
+					<td>10,000 +</td>
+					<td>x10</td>
+					<td>3 hexes</td>
+				</tr>
+			</tbody>
+		</table>
+		<p><strong>Resource Gathering</strong>: All <a href='/docs/maps_and_terrain'>hexes</a> within a city's territory produce <a href='/docs/resources'>resources</a> for a city every <a href='/docs/cycle'>cycle</a>.</p>
+		<p><strong>Loyalty</strong>: Every time the city's population expands or it is taxed, its loyalty falls from the maximum of 100%. Lower loyalty can make a city vulnerable to being <a href='/docs/combat#subverting_cities'>subverted</a>. To improve loyalty, Lords can distribute <a href='/docs/trade_goods'>trade goods</a> or a visiting character may spend their <a href='/docs/how_it_all_works#renown'>renown</a> to inspire the city.</p>
+		<p><strong>Taxation</strong>: Once per <a href='/docs/time'>year</a>, a city's population can be taxed producing 1 to 6 gold per population at a cost of 5 loyalty.</p>
+		<p><strong>Recruitment</strong>: <a href='/docs/humanoids'>Humanoids</a></p>
+		<p><strong>Production</strong>: Cities can produce <a href='/docs/armour'>armour</a>, <a href='/docs/weapons'>weapons</a>, <a href='/docs/vehicles_etc'>vehicles and siege equipment</a>.</p>
+		"
+	}
+
+	sections << {
+		title: 'Guilds',
+		icon: 'guild.png',
+		body: "
+		<p>Guilds are owned by <a href='/docs/characters#heroes'>Heroes</a>. They can only be formed where there is a city present.</p>
+		<p><strong>Formation Costs</strong>: 1,000 gold and 500 stone.</p>
+		<p><strong>Recruitment</strong>: <a href='/docs/beasts'>Beasts</a></p>
+		<p><strong>Production</strong>: Guilds can produce <a href='/docs/armour'>armour</a>, <a href='/docs/weapons'>weapons</a>, <a href='/docs/trade_goods'>trade goods</a>, <a href='/docs/vehicles_etc'>vehicles and siege equipment</a>.</p>
+		<p><strong>Training</strong>: Any army visiting a city where a guild is present may <a href='/docs/armies#training'>train units</a> for a fee. The guild master receives 10% of the fee paid.</p>"
+	}
+
+	sections << {
+		title: 'Towers',
+		icon: 'tower.png',
+		body: "
+		<p>Towers are owned by <a href='/docs/characters#necromancers'>Necromancers</a>. They are built on Plains, Forests and Mountains.</p>
+		<p><strong>Formation Costs</strong>: 100 mana points and 500 stone.</p>
+		<p><strong>Recruitment</strong>: <a href='/docs/undead'>Undead</a></p>
+		<p><strong>Rituals</strong>: A necromancer may perform <a href='/docs/spells#rituals'>rituals</a> inside a friendly tower.</p>
+		<p><strong>Mana Regeneration</strong>: Each tower controlled by a necromancer increases their mana point regeneration by 2.</p>
+		"
+
+	}
+
+	sections << {
+		title: 'Lairs',
+		icon: 'lair.png',
+		body: "
+		<p>Lairs are home to <a href='/docs/characters#dragons'>Dragons</a>. They are formed in Deserts, Seas and Mountains.</p>
+		<p><strong>Formation Costs</strong>: 200 mana points.</p>
+		<p><strong>Recruitment</strong>: <a href='/docs/elementals'>Elementals</a></p>
+		<p><strong>Rituals</strong>: A dragon may perform <a href='/docs/spells#rituals'>rituals</a> inside a friendly lair.</p>
+		<p><strong>Mana Regeneration</strong>: Each lair controlled by a dragon increases their mana point regeneration by 2.</p>
+		"
+	}
+%>
+<% content_for :overview do %>
+<p>Settlements are owned by <a href='/docs/characters'>characters</a> and represent the fixed positions on the world where items are produced and <a href='/docs/armies'>army units</a> formed and trained. Each type of character has a different type of settlement they can own.</p>
+<p><strong>Forming New Settlements</strong>: An army can form a settlement in a suitable hex provided it has the necessary raw materials needed for that type of settlement. An army can only form settlements for their character, so armies of Lords can only form cities, armies of Necromancers can only form towers and so on.</p>
+<p><strong>Recruitment</strong>: All settlements recruit during the <a href='/docs/time'>cycle update</a> based on the terrain of their hex. The amount cities recruit increases based on the population of the city.</p>
+<p><strong>Item Production</strong>: All settlements can turn <a href='/docs/resources'>resources</a> into mundane items such as <a href='/docs/weapons'>weapons</a> or <a href='/docs/armour'>armour</a>. This action can be done for 2 action points regardless of how many of the same item is produced.</p>
+<p><strong>Defences</strong>: Every settlement has a defence rating which can be improved by using stone. The defence rating is a bonus to the armour rank of friendly units fighting at the settlement's location (see <a href='/docs/combat'>combat</a>).</p>
+<p><strong>Permissions</strong>: A settlement may give armies permission to pick up items from its inventory. This can either be to pick up a fixed quantity of a specific item or all items. Armies owned by the same character as the settlement's owner already have full permissions.</p>
+<% end %>
+<%=render partial: '/docs/template', locals: {title: 'Settlements', url: 'settlements', sections: sections} %>

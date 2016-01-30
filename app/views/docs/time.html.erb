@@ -1,0 +1,26 @@
+<%
+	sections = []
+
+	sections << {
+		title: 'Cycles',
+		body: "<p>Time is measured in cycles. Every cycle <a href='/docs/characters'>characters</a> regenerate their power point pools, cities produce resources and all settlements attract new recruits. </p>
+			<p>At the end of each cycle, the <a href='/docs/trade_caravans'>trade caravans</a> complete transactions between buyers and sellers.</p>"
+	}
+
+	sections << {
+		title: 'Seasons',
+		body: "Each season is made of 4 cycles and there are 4 seasons in each year:
+		<ul>
+		<li><strong>Newbirth</strong> is the start of the year and characters replenish their <a href='/docs/how_it_all_works#action_points'>action points</a> at twice the normal rate.
+		<li><strong>Firelight</strong> is the hottest season of the year and a time of celestial power. Characters replenish their <a href='/docs/how_it_all_works#mana_points'>mana points</a> at twice the normal rate.
+		<li><strong>Harvest</strong> is the most bountiful season and <a href='/docs/settlements#cities'>cities</a> produce twice the normal amount of resources each cycle.
+		<li><strong>Coldhearth</strong> is the coldest season, characterised by heavy snowfall and thunderous storms. All <a href='/docs/maps_and_terrain#terrain'>terrain</a> is made difficult during this season.
+		</ul>"
+	}
+
+	sections << {
+		title: 'Years and Ages',
+		body: "Years are marked within an age that lasts until the time of ascension of <a href='/docs/immortality'>Immortals</a> and the cataclysms they cause."
+	}
+%>
+<%=render partial: '/docs/template', locals: {title: 'Time', url: 'time', sections: sections} %>

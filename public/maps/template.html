@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>World Map</title>
+    <style type="text/css">
+      * { -webkit-user-select:none; -webkit-tap-highlight-color:rgba(255, 255, 255, 0); }
+      html {height:100%;width:100%;overflow:hidden;}
+      body {background:white;color:black;height:100%;width:100%;margin:0;}
+      input, textarea {-webkit-user-select:text;}
+    </style>
+  </head>
+  <body>
+    <table border="0" width="100%">
+      <tr>
+        <td>
+            <table cellspacing="2" cellpadding="2" border="1" width="100%">
+              <caption>Legend</caption>
+              <tr>
+                <td style="background: #e3dac9; color: #000">Barren</td>
+                <td style="background: #ffef00; color: #000">Desert</td>
+                <td style="background: #228b22; color: #000">Forest / Jungle</td>
+                <td style="background: #8db600; color: #000">Hill</td>
+                <td style="background: #848482; color: #000">Mountain</td>
+                <td style="background: #fae7b5; color: #000">Plains</td>
+              </tr>
+              <tr>
+                <td style="background: #1ec8ff; color: #000">River</td>
+                <td style="background: #bdb76b; color: #000">Scrubland</td>
+                <td style="background: #1ea3ff; color: #000">Sea / Lake</td>
+                <td style="background: #556b2f; color: #000">Swamp</td>
+                <td style="background: #e32636; color: #000">Volcano</td>
+                <td style="background: #ffffff; color: #000">Wasteland</td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <canvas id="stage"></canvas>
+          </td>
+        </tr>
+      </table>
+
+    <script src="/maps/map.js"></script>
+    <script>
+      var element        = document.getElementById("stage");
+          element.height = window.innerHeight;
+          element.width  = window.innerWidth;
+
+      var stage   = new createjs.Stage("stage");
+          stage.x = window.innerWidth/2;
+          stage.y = window.innerHeight/2;
+
+      var grid             = new Grid();
+          grid.tileSize    = 10;
+          grid.tileSpacing = 0;
+          grid.pointyTiles = false;
+
+      var stageTransformer = new StageTransformer().initialize({
+        element: element,
+        stage: stage
+      });
+
+      stageTransformer.addEventListeners();
+
+      var centerR = %%CENTER&&, centerQ = %%CENTER&&,
+        mapCenter = grid.getCenterXY(centerR, centerQ),
+        data = %%DATA%%;
+
+      var coordinates = grid.hexagon(centerR, centerQ, %%RADIUS%%, true)
+      for (var i = 0; i < coordinates.length; i++) {
+        var q = coordinates[i].q,
+            r = coordinates[i].r,
+            center = grid.getCenterXY(q, r),
+            hexagon = new createjs.Shape();
+
+        center.x -= mapCenter.x;
+        center.y -= mapCenter.y;
+
+        hexagon.graphics
+          .beginFill(GetTerrainColour(data, q,r))
+          .beginStroke("rgba(50,50,50,1)")
+          .drawPolyStar(0, 0, grid.tileSize, 6, 0, 0);
+
+        hexagon.q = q;
+        hexagon.r = r;
+        hexagon.x = center.x;
+        hexagon.y = center.y;
+
+        stage.addChild(hexagon);
+      }
+
+      var tick = function (event) {
+        stage.update();
+      };
+
+      tick();
+
+      createjs.Ticker.setFPS(30);
+      createjs.Ticker.addEventListener("tick", tick);
+
+      function GetTerrainColour(data, q, r){
+        if(data.length > r && data[r].length > q){
+          var terrain = data[r][q];
+          switch(terrain){
+            case 'barren':
+                return '#e3dac9';
+            case 'desert':
+                return '#ffef00';
+            case 'forest':
+                return '#228b22';
+            case 'hill':
+                return '#8db600';
+            case 'mountain':
+                return '#848482';
+            case 'plains':
+                return '#fae7b5';
+            case 'river':
+                return '#1ec8ff';
+            case 'scrubland':
+                return '#bdb76b';
+            case 'sea':
+                return '#1ea3ff';
+            case 'swamp':
+                return '#556b2f';
+            case 'volcano':
+                return '#e32636';
+            case 'wasteland':
+                return '#ffffff';
+            default:
+                return '#eef';
+          }
+        }
+      }
+    </script>
+  </body>
+</html>

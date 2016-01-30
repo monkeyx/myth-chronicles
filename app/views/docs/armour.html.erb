@@ -1,0 +1,48 @@
+<%
+	sections = []
+
+	def armour_table(name)
+		item = Item.named(name).first
+
+		"<table class='table table-striped'>
+			<tr>
+				<th>Raw Materials</th>
+				<td>#{item.raw_materials_description}</td>
+			</tr>
+			<tr>
+				<th>Armour Rating Modifier</th>
+				<td>#{item.armour_rating}</td>
+			</tr>
+			<tr>
+				<th>Speed Rating Modifier</th>
+				<td>#{item.speed_rating}</td>
+			</tr>
+			<tr>
+				<th>Training Required</th>
+				<td>#{item.training_required.blank? ? 'None' : item.training_required}</td>
+			</tr>
+		</table>"
+	end
+
+	sections << {
+		title: 'Leather',
+		icon: 'items/leather.png',
+		body: armour_table('Leather')
+	}
+
+	sections << {
+		title: 'Chainmail',
+		icon: 'items/chainmail.png',
+		body: armour_table('Chainmail')
+	}
+
+	sections << {
+		title: 'Platemail',
+		icon: 'items/platemail.png',
+		body: armour_table('Platemail')
+	}
+%>
+<% content_for :overview do %>
+Armour is produced in <a href='/docs/settlements'>settlements</a> from raw <a href='/docs/resources'>resources</a> or by <a href='/docs/spells#ritual'>ritual magic</a>. It is worn by <a href='/docs/humanoids'>humanoid</a> and <a href='/docs/undead'>undead</a> <a href='/docs/armies'>army units</a> to improve their Armour Rating. Some armour requires training to use.
+<% end %>
+<%=render partial: '/docs/template', locals: {title: 'Armour', url: 'armour', sections: sections} %>

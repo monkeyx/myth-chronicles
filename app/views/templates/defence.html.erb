@@ -1,0 +1,18 @@
+<div ng-if="position.type == 'Settlement' && position.subtype != 'Guild'" class="panel panel-default">
+	<div class="panel-heading"><strong>Defence</strong></div>
+	<table class="table table-striped">
+		<tbody>
+			<tr>
+				<th>Defence Rating</th>
+				<td>{{position.defence_rating}}</td>
+			</tr>
+			<tr>
+				<th>Upgrade Cost</th>
+				<td>{{position.defenceUpgradeCost}} Stone</td>
+			</tr>
+			<tr ng-if="position.under_siege">
+				<td class="bg-warning text-center"><strong>Under siege</strong></td>
+			</tr>
+		</tbody>
+	</table>
+</div>

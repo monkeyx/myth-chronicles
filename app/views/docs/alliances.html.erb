@@ -1,0 +1,25 @@
+<%
+	sections = []
+
+	sections << {
+		title: "Forming Alliances",
+		body: "<p>There are no requirements to form an alliance except that the Lord may not already belong to an alliance.</p>
+		<p>There is no cost to form an alliance either.</p>"
+	}
+
+	sections << {
+		title: "Alliance Members",
+		body: "<p><strong>Invitation and Joining</strong>: To join an alliance, a character must be invited by the alliance leader or a member given the right to invite others.</p>
+<p><strong>Removing Members</strong>: The alliance leader, or any member he has given the right to do so, may remove members from the alliance at will.</p>
+<p><strong>Sharing Responsibility</strong>: The alliance leader may give other members the right to invite and remove members or publish alliance news.</p>"
+	}
+
+	sections << {
+		title: "Alliance News",
+		body: "Alliances may publish news which spreads out from the location of the character publishing the news at the rate of their Cunning attribute. The news item is a short bit of text that will be heard by characters as the news spreads.</p>"
+	}
+%>
+<% content_for :overview do %>
+<p>Alliances are formed by <a href='/docs/characters#lords'>Lords</a> although any character may join an alliance. The main benefit of being allied is that members are considered friendly and will not be able to attack each other.</p>
+<% end %>
+<%=render partial: '/docs/template', locals: {title: 'Alliances', url: 'alliances', sections: sections} %>

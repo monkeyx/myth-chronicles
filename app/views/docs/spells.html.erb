@@ -1,0 +1,71 @@
+<%
+	sections = []
+
+	def item_complexities_table
+		scope = Item.not_hidden.ritualable.order_by_name
+		table = "<table class='table table-striped'>
+			<tbody>
+				<tr>
+					<th>Item</th>
+					<th>Complexity</th>
+				</tr>
+		"
+		scope.each do |item|
+			table = table + "
+			<tr>
+				<td>#{item}</td>
+				<td>#{item.complexity}</td>
+			</tr>"
+		end
+		table + "</table>"
+	end
+
+	sections << {
+		title: 'Bless',
+		body: "<p>Bless spells are cast by <a href='/docs/characters#hero'>Heroes</a> and <a href='/docs/characters#lord'>Lords</a>.</p>
+		<p>The spell confers a single friendly unit at the same location a bonus to their Strength and Armour Rating until <em>after</em> the first time the unit attacks another unit.</p>
+		<p>The strength of the blessing depends on the mana spent and the Craft Rating of the caster.</p>
+		<p><strong>Bless Rating</strong> = #{Character::BLESS_PER_MANA_CRAFT_FACTORS} x Mana Spent x Craft Rating</p>"
+	}
+
+	sections << {
+		title: 'Heal',
+		body: "<p>Healing spells are cast by <a href='/docs/characters#hero'>Heroes</a>, <a href='/docs/characters#lord'>Lords</a> and <a href='/docs/characters#necromancer'>Necromancers</a>.</p>
+		<p>The spell heals a damaged friendly unit at the same location.</p>
+		<p>The amount of healing depends on the mana spent and the Craft Rating of the caster.</p>
+		<p><strong>Damage healed</strong> = #{Character::HEAL_PER_MANA_CRAFT_FACTORS} x Mana Spent x Craft Rating</p>"
+	}
+
+	sections << {
+		title: 'Ritual',
+		body: "<p>Ritual spells are cast by <a href='/docs/characters#necromancer'>Necromancers</a> and <a href='/docs/characters#dragon'>Dragons</a>.</p>
+		<p>The spell must be cast at friendly Tower or Lair and creates items of the caster's choice in that settlement. The quantity of the item called forth from the ether depends on its complexity, the amount of mana spent and the Craft Rating of the caster.</p>
+		<p><strong>Quantity</strong> = (Mana Spent x Craft Rating) / Item Complexity</p>"
+	}
+
+	sections << {
+		title: 'Scry',
+		body: "<p>Scry spells are cast by <a href='/docs/characters#necromancers'>Necromancers</a> and <a href='/docs/characters#dragon'>Dragons</a>.</p>
+		<p>The spell scouts a distant hex without having to move to an adjacent location. The caster's Craft Rating is used.</p>
+		<p>The mana cost of the spell depends on the distance to the target hex and the Craft Rating of the caster.</p>
+		<p><strong>Mana Cost</strong> = (Distance to Target x #{Character::SCRY_MANA_COST_MULTIPLIER}) / Craft Rating</p>"
+	}
+
+	sections << {
+		title: 'Teleport',
+		body: "<p>Teleport spells are cast by <a href='/docs/characters#hero'>Heroes</a> and <a href='/docs/characters#necromancer'>Necromancers</a>.</p>
+		<p>A character can teleport himself to a distant hex, moving directly to the location and ignoring terrain.</p>
+		<p>Only the character's unit is moved to the new location. Any other units with the character at the time the spell is cast are left behind in the original army.</p>
+		<p>The mana cost of the spell depends on the distance to the target hex and the Craft Rating of the caster.</p>
+		<p><strong>Mana Cost</strong> = (Distance to Target x #{Character::TELEPORT_MANA_COST_MULTIPLIER}) / Craft Rating</p>"
+	}
+
+	sections << {
+		title: 'Item Complexities',
+		body: item_complexities_table
+	}
+%>
+<% content_for :overview do %>
+All <a href='/docs/characters'>characters</a> can cast some spells, using <a href='/docs/how_it_all_works#mana_points'>mana points</a> to get some beneficial effect. The power of a spell is determined by the Craft Rating of the character and how much mana they spend.
+<% end %>
+<%=render partial: '/docs/template', locals: {title: 'Spells', url: 'spells', sections: sections} %>

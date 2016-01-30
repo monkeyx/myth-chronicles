@@ -1,0 +1,1 @@
+rake db:migrate:reset && rake db:seed && rake myth:create && rake myth:create_gm && rake myth:test_db_setup

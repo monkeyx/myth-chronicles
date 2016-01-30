@@ -1,0 +1,50 @@
+<div ng-if="character" id="characterStatus">
+	<div class="row">
+		<div class="col-xs-9 text-left">
+			<div id="statusBar" class="well well-sm">
+				<a id="status-character" ui-sref="user.position({posType: 'Character', posId: character.id})"><img ng-src="/icons/{{character.icon}}.png" class="icon" uib-tooltip="{{character.name}} ({{character.id}})" tooltip-placement="bottom" >&nbsp;<strong>{{character.name}}</strong></a>
+				<span class="span-separator"></span>
+				<span id="status-action-points" uib-tooltip="Action Points" tooltip-placement="bottom"><img src="/icons/action_points.png" title="Action Points" class="icon">
+					{{character.action_points}}</span>
+				<span id="status-mana-points" uib-tooltip="Mana Points" tooltip-placement="bottom"><img src="/icons/mana_points.png" title="Mana Points" class="icon">
+					{{character.mana_points}}</span>
+				<span id="status-gold" uib-tooltip="Gold" tooltip-placement="bottom"><img src="/icons/gold.png" title="Gold" class="icon">
+					{{character.gold}}</span>
+				<span class="span-separator"></span>
+				<span id="status-armies" class="dropdown" ng-if="armies" uib-dropdown is-open="status.isArmiesOpen" uib-tooltip="Armies" tooltip-placement="bottom">
+					<a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" uib-dropdown-toggle ng-disabled="disabled"><img class="icon" src="/icons/army.png" title="Armies">
+					{{character.army_count}}<span class="caret"></span></a>
+					<ul class="dropdown-menu">
+						<li ng-repeat="position in armies"><a ui-sref="user.position({posType: position.type, posId: position.id})">{{position.name}} ({{position.id}})</a></li>
+						<li ng-if="character.army_count > armies.length">
+							<a ui-sref="user.dashboard">More...</a>
+						</li>
+					</ul>
+				</span>
+				<span class="span-separator"></span>
+				<span id="status-settlements" class="dropdown" ng-if="settlements" uib-dropdown is-open="status.isSettlementsOpen">
+					<a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" uib-dropdown-toggle ng-disabled="disabled">
+					<img class="icon" src="/icons/city.png" title="Cities" uib-tooltip="Cities" tooltip-placement="bottom" ng-if="character.subtype == 'Lord'">
+					<img class="icon" src="/icons/guild.png" title="Guilds" uib-tooltip="Guilds" tooltip-placement="bottom" ng-if="character.subtype == 'Hero'">
+					<img class="icon" src="/icons/lair.png" title="Lairs" uib-tooltip="Lairs" tooltip-placement="bottom" ng-if="character.subtype == 'Dragon'">
+					<img class="icon" src="/icons/tower.png" title="Towers" uib-tooltip="Towers" tooltip-placement="bottom" ng-if="character.subtype == 'Necromancer'">
+					{{character.settlement_count}}
+					<span class="caret"></span></a>
+					<ul class="dropdown-menu">
+						<li ng-repeat="position in settlements"><a ui-sref="user.position({posType: position.type, posId: position.id})">{{position.name}} ({{position.id}})</a></li>
+						<li ng-if="character.settlement_count > settlements.length">
+							<a ui-sref="user.dashboard">More...</a>
+						</li>
+					</ul>
+				</span>
+				<span class="span-separator"></span>
+				<span id="status-battles"><a ui-sref="user.battles({battleId: 0})"><img src="/icons/battle.png" title="Battles" uib-tooltip="Battles" tooltip-placement="bottom" class="icon"></a>
+				</span>
+				<span class="span-separator"></span>
+				<span id="status-messages"><a class="pointer" ui-sref="user.mailbox" uib-tooltip="Messages" tooltip-placement="bottom"><i class="fa fa-envelope-o"></i></span>
+			</div>
+		</div>
+		<div class="col-xs-3 text-right"><span class="non-mobile label label-default">{{game.game_time.display}}</span></div>
+		
+	</div>
+</div>

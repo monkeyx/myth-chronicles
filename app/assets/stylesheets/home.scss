@@ -1,0 +1,56 @@
+#home-banner {
+  background-color: rgba(253, 253, 233, 1.0);
+  border: 1px solid black;
+}
+
+#home-title {
+  color: #000;
+}
+
+.home-header {
+  background: rgba(0,0,0,0);
+}
+
+#main .home-content {
+   position: fixed;
+   top: 170px;
+   left: 65px;
+   width: 90%;
+   height: 80%;
+   overflow: scroll;
+   border: 0;
+}
+
+.home-background {
+  background-image: url(/map_image.png);
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  background-color: #100c08;
+  width: 100%;
+}
+
+#home {
+  width: 100%;
+}
+
+.home-background h1 {
+  font-size: 42px;
+  color: #000;
+}
+
+#home .well {
+   background-color: rgba(253, 253, 233, 0.90);
+}
+
+#home .jumbotron {
+  width: 100%;
+  background: none;
+	border: none;
+}
+
+#features ul li {
+  font-size: 16px;
+  padding-bottom: 5px;
+}

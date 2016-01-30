@@ -1,0 +1,236 @@
+<%
+	sections = []
+
+	sections << {
+		title: 'Units',
+		body: "<p>Each unit is made up of 100 <a href='/docs/humanoids'>humanoids</a>, <a href='/docs/elementals'>elementals</a> or <a href='/docs/undead'>undead</a> equipped with <a href='/docs/weapons'>weapons</a>, <a href='/docs/armour'>armour</a>, <a href='/docs/beasts'>mounts</a> or <a href='/docs/vehicles_etc'>vehicles and siege equipment</a>.</p>
+			<p><strong>Creating and Transferring Units</strong>: Units are created at settlements provided they have 100 <a href='/docs/humanoids'>humanoids</a>, <a href='/docs/undead'>undead</a> or <a href='/docs/elementals'>elementals</a> present.</p>
+			<p>It costs 10 gold to create a unit of humanoids and 10 mana points to create a unit of undead or elementals.</p>
+			<p>When created they can be assigned to a friendly army present at the same location or a new army is created under the control of the settlement's owner.</p>
+			<p>An army may transfer any of its units to another friendly army at the same location.</p>
+			<p><strong>Attributes</strong>: All units have a set of <a href='/docs/how_it_all_works#attributes'>attributes</a> describing their capabilities. These can be improved with equipment, some tactics or training.</p>
+			<p><strong>Health</strong>: Each unit has a health percentage which denotes how damaged it has been in <a href='/docs/combat'>combat</a>. The lower the health, the weaker the unit is although some races, such as <a href='/docs/undead#zombies'>zombies</a>, have an indomitable spirit that works at full capability even when damaged.</p>
+			<p>Health is recovered naturally over time, faster in friendly territory, or by use of <a href='/docs/spells#heal'>magic</a>. A character with positive <a href='/docs/how_it_all_works#renown'>renown</a> may spend 1 renown to restore a unit to 100% health by <em>Rallying the Troops</em>.</p>
+			<p><strong>Bless Rating</strong>: A unit may be <a href='/docs/spells#bless'>blessed</a> by a friendly <a href='/docs/characters#lord'>Lord</a> or <a href='/docs/characters#hero'>Hero</a>. The blessing increases both the Strength and Armour Rating of the unit, lasting until <em>after</em> the first time the unit attacks.</p>
+			<p><strong>Range</strong>: A unit's range is determined by the weapon it uses, if any. There are three range classifications:
+			<table class='table table-striped'>
+				<tbody>
+					<tr>
+						<td><i class='fa fa-arrow-right'></i></td>
+						<th>Melee</th>
+						<td>Unarmed, most <a href='/docs/weapons'>weapons</a></td>
+					</tr>
+					<tr>
+						<td><i class='fa fa-arrow-right'></i><i class='fa fa-arrow-right'></i></td>
+						<th>Short</th>
+						<td><a href='/docs/weapons#spear'>Spears</a> and <a href='/docs/weapons#crossbow'>Crossbows</a></td>
+					</tr>
+					<tr>
+						<td><i class='fa fa-arrow-right'></i><i class='fa fa-arrow-right'></i><i class='fa fa-arrow-right'></i></td>
+						<th>Long</th>
+						<td><a href='/docs/weapons#bow'>Bows</a></td>
+					</tr>
+				</tbody>
+			</table>
+			<p>Short and Long range units suffer a penalty when fighting in melee combat.</p>
+			<p><strong>Character Units</strong>: Every <a href='/docs/characters'>character</a> is also a unit attached to an army. Character units cannot be given equipment or trained. If a character unit is reduced to 0% health, the character is incapacitated (if it has a settlement to flee to) or dies.</p>"
+	}
+
+	sections << {
+		title: 'Movement & Transportation',
+		body: "<p>Each unit is capable of carrying 100 items such as <a href='/docs/resources'>resources</a>, <a href='/docs/weapons'>weapons</a> or <a href='/docs/armour'>armour</a>.</p>
+			<p>Most units are only capable of moving across land and thus their transportation of items is on land only. A few units can naturally swim or fly thus can carry items by sea or air as well. Units mounted on gryphons can also carry items by air.</p>
+			<p><a href='/docs/vehicles_etc'>Vehicles</a> can be assigned to a unit to increase its land or sea transport capacity.</p>
+			<p>If an army is carrying more items than its transport capacity allows it will not be able to move.</p>
+			<p>Armies move one <a href='/docs/maps_and_terrain'>hex</a> at a time at the cost of 2 action points or 4 action points for difficult terrain.</p>
+			<p>Armies cannot move into Sea unless they are capable of sea movement. Rivers are treated as difficult terrain unless the army is capable of sea movement.</p>
+			<p>Mountains and volcano are impassable except to armies capable of air movement.</p>"
+	}
+
+	sections << {
+		title: 'Training',
+		body: "<p>All units can be trained at <a href='/docs/settlements#guilds'>guilds</a> in a variety of styles of warfare and the use of specialised equipment. Training costs #{Unit::GOLD_COST_TO_TRAIN} gold or half that for especially smart races such as <a href='/doc/humanoids#elf'>elves</a> and <a href='/docs/undead#vampire'>vampires</a>. Some races are stupid and cost double the gold to train. 10% of the training costs go to the guild master.</p>
+		<p>A unit may only have one active training at a time. If trained again, the previous training including any benefits will be lost. Any equipment requiring the previous training will be unequipped.</p>
+		<table class='table table-striped'>
+			<thead>
+				<tr>
+					<th>Training</th>
+					<th>Effect</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<th>Archery</th>
+					<td>Allows the use of <a href='/docs/weapons#bow'>Bows</a></td>
+				</tr>
+				<tr>
+					<th>Discipline</th>
+					<td>Allows use of Wall tactics</td>
+				</tr>
+				<tr>
+					<th>Armoured</th>
+					<td>Allows the use of <a href='/docs/armour#platemail'>Platemail</a></td>
+				</tr>
+				<tr>
+					<th>Infiltration</th>
+					<td>Allows use of Ambush tactics<br/>
+					Greatly reduces the chance of being scouted.</td>
+				</tr>
+				<tr>
+					<th>Machinery</th>
+					<td>Allows use of <a href='/docs/weapons#crossbow'>Crossbows</a></td>
+				</tr>
+				<tr>
+					<th>Mobile</th>
+					<td>Allows use of <a href='/docs/weapons#lance'>Lances</a><br/>
+					Allows use of Flank tactics</td>
+				</tr>
+				<tr>
+					<th>Reconnaissance</th>
+					<td>+3 to Scouting Rank</td>
+				</tr>
+				<tr>
+					<th>Guerrilla</th>
+					<td>Allows use of Skirmishing tactics</td>
+				</tr>
+			</tbody>
+		</table>"
+	}
+
+	sections << {
+		title: 'Tactics',
+		body: "<p>Units by default use a basic Swarm tactic in combat, however, with training they may adopt new ways of fighting.</p>
+			<table class='table table-striped'>
+				<thead>
+					<tr>
+						<th>Tactic</th>
+						<th>Training Required</th>
+						<th>Effect</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<th>Ambush</th>
+						<td>Infiltration</td>
+						<td>Doubles attack vs Flank / Swarm / Wall tactics in difficult terrain<br/>
+						+2 Speed rank</td>
+					</tr>
+					<tr>
+						<th>Flank</th>
+						<td>Mobile</td>
+						<td>Doubles attack vs Skirmish / Swarm / Wall in non-difficult terrain<br/>
+						+2 Speed rank</td>
+					</tr>
+					<tr>
+						<th>Skirmish</th>
+						<td>Guerrilla</td>
+						<td>Doubles attack vs Flank / Swarm / Wall in difficult terrain<br/>
+						Doubles defence vs Skirmish / Swarm / Wall in difficult terrain</td>
+					</tr>
+					<tr>
+						<th>Swarm</th>
+						<td>None</td>
+						<td>None</td>
+					</tr>
+					<tr>
+						<th>Wall</th>
+						<td>Discipline</td>
+						<td>Doubles defence vs Skirmish / Swarm<br/>
+						+2 Morale rank</td>
+					</tr>
+				</tbody>
+			</table>"
+	}
+
+	sections << {
+		title: 'Equipping Units',
+		body: "<p>Units may be equipped with <a href='/docs/weapons'>weapons</a>, <a href='/docs/armour'>armour</a>, <a href='/docs/beasts'>mounts</a> or <a href='/docs/vehicles_etc'>vehicles and siege equipment</a> as long as they meet the requirements.</p>
+			<table class='table table-striped'>
+				<tbody>
+					<tr>
+						<th>Humanoids</th>
+						<td>May use weapons, armour, mounts, vehicles and siege equipment. Some weapons and armour require training<br/>
+						<strong>Giants</strong> and <strong>Ogres</strong> may not mount beasts</td>
+					</tr>
+					<tr>
+						<th>Undead</th>
+						<td>May use weapons, armour, vehicles and siege equipment. Some weapons and armour require training<br/>
+						<strong>Vampires</strong> may not use siege equipment
+						</td>
+					</tr>
+					<tr>
+						<th>Elementals</th>
+						<td>May use vehicles and siege equipment<br/>
+						<strong>Valkyrie</strong> may not use siege equipment
+					</tr>
+					<tr>
+						<th>Training Required</th>
+						<td>Bows, Crossbows, Lances and Platemail require training to equip</td>
+					</tr>
+					<tr>
+						<th>Mounted Weapons</th>
+						<td>Lances can only be used by mounted units</td>
+					</tr>
+					<tr>
+						<th>Flying Creatures</th>
+						<td>Flying units cannot use siege equipment (noted above for Vampires and Valkyrie)<br/>
+						 If a unit mounts flying beasts such as gryphons, it will unequip the siege equipment and likewise, if equipping siege equipment, it will dismount</td>
+					</tr>
+				</tbody>
+			</table>
+			<p>To equip a unit with armour, weapons or mounts the army must have 100 of the item in its inventory (one for each member of the unit).</p>
+			<p>Only 1 siege equipment or vehicle may be equipped by a unit at a time.</p>"
+	}
+
+	sections << {
+		title: 'Scouting',
+		body: "<p>Armies automatically scout other armies in hexes they move through or that move through their own hex. They can also additionally action a scouting of neighbouring hexes at the cost of 2 action points.</p>
+		<p>The best scouting rank of all units in the army is used when scouting. An <a href='/docs/how_it_all_works#attributes'>attribute check</a> is made against the stealth rating of the scouted unit.</p>
+		<table class='table table-striped'>
+			<tbody>
+				<tr>
+					<th>Base Stealth</th>
+					<td>7</td>
+				</tr>
+				<tr>
+					<th>Infiltration training</th>
+					<td>+5</td>
+				</tr>
+				<tr>
+					<th>Stealthy race</th>
+					<td>+5</td>
+				</tr>
+				<tr>
+					<th>Large race</th>
+					<td>-3</td>
+				</tr>
+				<tr>
+					<th>Huge race</th>
+					<td>-5</td>
+				</tr>
+				<tr>
+					<th>Small race</th>
+					<td>+3</td>
+				</tr>
+				<tr>
+					<th>In friendly settlement</th>
+					<td>+2</td>
+				</tr>
+				<tr>
+					<th>In difficult terrain</th>
+					<td>+3</td>
+				</tr>
+				<tr>
+					<th>In impassable terrain</th>
+					<td>+5</td>
+				</tr>
+			</tbody>
+		</table>
+		<p>A scouting report will give the name of all armies present plus what units were spotted within the army.</p>"
+	}
+%>
+<% content_for :overview do %>
+<p>Armies are controlled by <a href='/docs/characters'>characters</a> as the main means of moving people and items from one place to another as well as fighting <a href='/docs/combat'>battles</a>. Each army is nothing more than the sum of its units and the inventory they carry with them.</p>
+<p><strong>Guarding Settlements</strong>: Any army may be assigned to guard a friendly <a href='/docs/settlements'>settlement</a>. This will prevent any hostile army <a href='/docs/combat#capturing_settlements'>capturing</a> or <a href='/docs/combat#razing_settlements'>razing</a> it without first destroying the guarding army.</p> 
+<% end %>
+<%=render partial: '/docs/template', locals: {title: 'Armies', url: 'armies', sections: sections} %>

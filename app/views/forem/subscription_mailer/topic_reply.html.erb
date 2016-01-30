@@ -1,0 +1,10 @@
+<h3><%=@post.topic.subject%></h3>
+
+<blockquote>
+	<pre><%= @post.text %></pre>
+	<footer>-- <%= @post.user.name %></footer>
+</blockquote>
+
+<p>You can view it <a href="<%= forem.forum_topic_url(@post.topic.forum_id, @post.topic) %>">here</a></p>
+
+<p>To unsubscribe from this topic, <a href="<%= forem.unsubscribe_forum_topic_url(@post.topic.forum, @post.topic) %>">click here</a></p>

@@ -1,0 +1,43 @@
+<%
+	sections = []
+
+	sections << {
+		title: "Gaining Experience",
+		body: "
+		<table class='table table-striped'>
+			<thead>
+				<tr>
+					<th></th>
+					<th>Activity</th>
+					<th>Experience Gained</th>
+			</thead>
+			<tbody>
+				<tr>
+					<th>Combat</th>
+					<td>Character unit is involved in a battle</td>
+					<td>1 Experience Point</td>
+				</tr>
+				<tr>
+					<th>Exploration</th>
+					<td>Character explores a level of a dungeon</td>
+					<td>1 Experience Point</td>
+				</tr>
+				<tr>
+					<th>Ritual</th>
+					<td>Character casts a ritual spell</td>
+					<td>1% chance per mana spent of gaining 1 Experience Point</td>
+				</tr>
+			</tbody>
+		</table>
+		"
+	}
+
+	sections << {
+		title: "Improving Attributes",
+		body: "<p>The cost to improve an <a href='/docs/how_it_all_works#attributes'>attribute</a> is the current Rating squared, e.g. to move an attribute from 5 to 6, it will cost 25 Experience Points.</p>"
+	}
+%>
+<% content_for :overview do %>
+<p><a href='/docs/characters'>Characters</a> gain experience points in a number of different ways and may use them to improve their strength, armour, leadership, cunning or craft ratings.</p>
+<% end %>
+<%=render partial: '/docs/template', locals: {title: 'Experience & Improve Characters', url: 'xp', sections: sections} %>

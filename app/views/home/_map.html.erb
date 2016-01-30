@@ -1,0 +1,28 @@
+<div ng-controller="MapCtrl">
+    <div id="map" ng-if="character">
+        <a id="mapButton" class="btn btn-success" ng-if="!checked" ng-click="toggle()">
+            <i class="fa fa-globe"></i>
+            <span class="non-mobile">Map</span>
+        </a>
+    </div>
+    <div pageslide ps-open="checked" ps-side="left" ps-speed="0.2" ps-size="100%" ps-auto-close="true">
+        <div id="mapPanel" class="panel panel-success">
+            <div class="panel-heading">
+                <div class="pull-right"><button type="button" class="btn btn-info" ng-click="showWorldMap()"<i class="fa fa-globe"></i> &nbsp;World Map</button></div>
+                <h3 class="panel-title"><button type="button" class="btn btn-default" ng-click="toggle()"><i class="fa fa-times"></i></button>&nbsp;Map</h3>
+            </div>
+            <div class="panel-body">
+                <div class="row row-centered">
+                    <div class="col-xs-12 col-centered">
+                        <span class="label label-default">{{hoverLabel}}</span>
+                    </div>
+                </div>
+                <div class="row row-centered">
+                    <div id="hex-map" class="col-xs-12 col-centered">
+                        <canvas id="stage"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

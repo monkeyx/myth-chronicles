@@ -1,0 +1,135 @@
+/*
+ *= require_self
+ *= require 'forem/base'
+ */
+@import url(https://fonts.googleapis.com/css?family=Alef:400,700);
+@import url(https://fonts.googleapis.com/css?family=Laila:400,700);
+@import url(https://fonts.googleapis.com/css?family=Audiowide);
+@import "bootstrap-sass-official/assets/stylesheets/bootstrap-sprockets";
+@import "variables";
+@import "bootstrap-sass-official/assets/stylesheets/bootstrap";
+@import "theme";
+@import "animate";
+@import "spinner";
+@import "font-awesome/font-awesome";
+
+body {
+  padding-top: 50px;
+}
+h1,
+.navbar-brand {
+  font-family: 'Audiowide', cursive;
+}
+h2, h3, h4, h5, h6 {
+    font-family: 'Alef', sans-serif;
+}
+
+.sub-header {
+  padding-bottom: 10px;
+  border-bottom: 1px solid #eee;
+}
+p, div {
+	font-family: 'Laila', serif;
+}
+
+// Bootstrap overrides
+.navbar-fixed-top {
+  border: 0;
+}
+
+.row-centered {
+    text-align:center;
+}
+.col-centered {
+    display:inline-block;
+    float:none;
+    /* reset the text-align */
+    text-align:left;
+    /* inline-block space fix */
+    margin-right:-4px;
+}
+
+.icon {
+  width: 20px;
+  height: 20px;
+}
+
+.nav-link-title,
+.action-button-text {
+  margin-left: 3px;
+  padding-left: 3px;
+}
+
+@media (max-width: 500px) {
+  .non-mobile {
+    display: none;
+  }
+}
+
+.destroyed {
+  color: red;
+}
+
+.routed {
+  color: gray;
+}
+
+.note {
+  font-size: 11px;
+  font-style: italic;
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+.form-control:focus {
+  outline: 0;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6);
+          box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6);
+}
+
+#page-footer {
+  position: fixed;
+  bottom: 0px;
+  left: 0px;
+  width: 100%;
+  padding-top: 2px;
+  padding-bottom: 0px;
+  max-heigth: 15px;
+}
+
+#page-footer a, 
+#page-footer a:visited, 
+#page-footer a:hover {
+  color: #999;
+}
+
+blockquote p {
+  padding-bottom: 10px;
+}
+
+.tab-content{
+    padding:5px
+}
+.nav-tabs > li > a{
+  border: medium 1px;
+}
+.nav-tabs > li > a:hover{
+    border: medium 1px black;
+    border-radius: 0;
+}
+
+#game-menu ul li a:hover {
+  text-decoration: underline;
+}
+
+::-webkit-scrollbar {
+    -webkit-appearance: none;
+    width: 7px;
+}
+
+@import "gui";
+@import "main";
+@import "status";
+@import "home";

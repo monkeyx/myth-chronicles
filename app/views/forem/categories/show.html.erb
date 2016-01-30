@@ -1,0 +1,4 @@
+<div class='category'>
+  <h3><%= link_to t('forem.forum.forums'), forem.forums_path %> &raquo; <%= link_to forem_emojify(@category), [forem, @category] %></h3>
+  <%= render @category %>
+</div>

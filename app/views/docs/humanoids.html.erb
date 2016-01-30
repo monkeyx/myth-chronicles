@@ -1,0 +1,65 @@
+<%
+	sections = []
+
+	def unit_stats(race)
+		Unit.new(race: race).race_stats_table
+	end
+
+	sections << {
+		title: 'Human',
+		icon: 'items/human.png',
+		body: "<p>Humans are a versatile race well suited to life on the open plains where they began as nomadic herdsmen before settling down to form agrarian communities.</p>" + unit_stats('Human')
+	}
+
+	sections << {
+		title: 'Elf',
+		icon: 'items/elf.png',
+		body: "<p>Elves are forest dwellers with uncanny intelligence and graceful quickness. Many see themselves as custodians of nature, balancing the needs of civilisation with their green surroundings. They value the lives of their long-living race very highly, thus they prefer retreat to destruction.</p>" + unit_stats('Elf') + 
+		"<p><strong>Smart</strong>: Costs half the usual gold to train units of Elves.</p>"
+	}
+
+	sections << {
+		title: 'Dwarf',
+		icon: 'items/dwarf.png',
+		body: "<p>Dwarves are stocky and slow but very tough and resilient. They live in dwellings cut into the hills near sources of iron. Clan loyalties are paramount to dwarves and they live in extended families numbering in the hundreds.</p>" + unit_stats('Dwarf')
+	}
+
+	sections << {
+		title: 'Orc',
+		icon: 'items/orc.png',
+		body: "<p>The violent and simple-minded orcs are as resilient and tough as dwarves. They make their fortified camps on barren landscape under the rule of the toughest warlord. They make frequent raids on human cities, often martialling the goblins to fight with them.</p>" + unit_stats('Orc')
+	}
+
+	sections << {
+		title: 'Goblin',
+		icon: 'items/goblin.png',
+		body: "<p>Small and weak, goblins compensate by their sheer numbers and sneaky quickness. They are not reliable in a fight but uncanny in their ability to dodge enemy arrows. Their natural habitat is in the scrublands where they build warren structures decorated with trophies stolen from others.</p>" + unit_stats('Goblin') + 
+		"<p><strong>Frisky</strong>: Goblins are recruited at ten times the normal rate.</p>
+		<p><strong>Evasive</strong>: Goblins take half damage from ranged weapons.</p>
+		"
+	}
+
+	sections << {
+		title: 'Ogre',
+		icon: 'items/ogre.png',
+		body: "<p>These large, terrifying creatures roam the wastelands in monstrous warbands. As strong as giants, they are slow moving, tough and stubborn. Their vile appetites are matched by their stupidity. Thankfully for the other races, they are slow breeders.</p>" + unit_stats('Ogre') +
+		"<p><strong>Large</strong>: Ogres are large and easy to spot. They cannot ride beasts.</p>
+		<p><strong>Stupid</strong>: Ogres are difficult to train and cost double the normal gold to learn.</p>
+		<p><strong>Terrifying</strong>: Even units at full health must make morale checks when facing Ogres.</p>
+		<p><strong>Rare</strong>: Ogres are rare and recruited at a tenth of the normal rate.</p>"
+	}
+
+	sections << {
+		title: 'Giant',
+		icon: 'items/giant.png',
+		body: "<p>Huge and strong, the giants live in homes high in the mountains. Like ogres, they are slow moving, tough and stubborn but do not suffer from the diminished mental capacity of their retrograde cousins. Giants live for centuries and younglins are very rare.</p>" + unit_stats('Giant') + 
+		"<p><strong>Huge</strong>: Giants are huge and very easy to spot. They cannot ride beasts.</p>
+		<p><strong>Rare</strong>: Giants are rare and recruited at a tenth of the normal rate.</p>"
+	}
+
+%>
+<% content_for :overview do %>
+<p>Humanoids are living sentient species born of this world. They come in eight varieties, each suited to a different terrain. All are capable of forming <a href='/docs/settlements#cities'>cities</a> where they are recruited into <a href='/docs/armies'>armies</a> under <a href='/docs/characters#lords'>Lords</a>.</p>
+<p><strong>Heroes</strong>: A hero can directly recruit humanoids to their army through an action at a hex of the appropriate terrain, e.g. a Hero in Scrublands could recruit goblins. The number of humanoids that join the hero will be randomly determined, factoring in the rarity of the humanoid. It may be efforts to recruit particularly rare races will result in nothing. Humanoids recruited in this way by heroes must be taken to a settlement for training to form units.</p>
+<% end %>
+<%=render partial: '/docs/template', locals: {title: 'Humanoids', url: 'humanoids', sections: sections} %>

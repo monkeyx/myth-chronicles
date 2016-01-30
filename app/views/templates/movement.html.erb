@@ -1,0 +1,56 @@
+<div ng-if="position.type == 'Army'" class="panel panel-default">
+	<div class="panel-heading"><strong>Movement</strong></div>
+	<table class="table table-striped">
+		<thead>
+			<tr>
+				<th>Type</th>
+				<th>Capable?</th>
+				<th>Transport Capacity</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<th>
+					Air
+				</th>
+				<td>
+					<span ng-if="position.movement_air"><i class="fa fa-check"></i></span>
+					<span ng-if="!position.movement_air"><i class="fa fa-times"></i></span>
+				</td>
+				<td>
+					{{position.air_capacity}}
+				</td>
+			</tr>
+			<tr>
+				<th>
+					Land
+				</th>
+				<td>
+					<span ng-if="position.movement_land"><i class="fa fa-check"></i></span>
+					<span ng-if="!position.movement_land"><i class="fa fa-times"></i></span>
+				</td>
+				<td>
+					{{position.land_capacity}}
+				</td>
+			</tr>
+			<tr>
+				<th>
+					Sea
+				</th>
+				<td>
+					<span ng-if="position.movement_sea"><i class="fa fa-check"></i></span>
+					<span ng-if="!position.movement_sea"><i class="fa fa-times"></i></span>
+				</td>
+				<td>
+					{{position.sea_capacity}}
+				</td>
+			</tr>
+			<tr ng-if="position.guarding">
+				<td class="bg-warning text-center" colspan="3"><strong>Guarding location</strong></td>
+			</tr>
+			<tr ng-if="position.sieging.id">
+				<td class="bg-warning text-center" colspan="3"><strong>Besieging {{position.sieging.name}} ({{position.sieging.id}})</strong></td>
+			</tr>
+		</tbody>
+	</table>
+</div>

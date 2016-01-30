@@ -1,0 +1,22 @@
+{
+  "name": "dsl-generated dependencies",
+  "dependencies": {
+    "jquery": "latest",
+    "bootstrap-sass-official": "latest",
+    "angular": "1.4.6",
+    "angular-animate": "1.4.6",
+    "angular-resource": "1.4.6",
+    "angular-sanitize": "1.4.6",
+    "angular-touch": "1.4.6",
+    "angular-ui-router": "latest",
+    "angular-cookie": "latest",
+    "ng-token-auth": "latest",
+    "angular-poller": "latest",
+    "angular-local-storage": "latest",
+    "angular-paginate-anything": "latest",
+    "angular-pageslide-directive": "latest",
+    "angular-media-queries": "latest",
+    "angular-bootstrap": "latest",
+    "EaselJS": "latest"
+  }
+}

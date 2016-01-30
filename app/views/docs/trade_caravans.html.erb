@@ -1,0 +1,18 @@
+<%
+	sections = []
+
+	sections << {
+		title: 'Transaction Charges',
+		body: "<p>Trade caravans will charge 1 gold for every 3 hexes they had to transport a good, adding this charge to the effective sell price of the item when looking for potential matches with buyers.</p>"
+	}
+
+	sections << {
+		title: 'Unsold Items',
+		body: "<p>Any items listed to buy or sell but not matched during the cycle update will remain listed until the player changes the listing by giving new instructions to the settlement.</p>
+			<p>A settlement without the item to sell or gold to buy will not be considered for trade in a particular cycle but the buy or sell listing will remain for the future should circumstances change.</p>"
+	}
+%>
+<% content_for :overview do %>
+<p>All <a href='/docs/settlements'>settlements</a> can list items they wish to buy and sell. Every <a href='/docs/time'>cycle</a> trade caravans will try to match buyers and sellers.</p>
+<% end %>
+<%=render partial: '/docs/template', locals: {title: 'Trade Caravans', url: 'trade_caravans', sections: sections} %>

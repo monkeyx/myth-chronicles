@@ -1,0 +1,16 @@
+<%= render partial: '/layouts/header' %>
+
+<body ng-controller="BodyCtrl" ng-class="(!currentUser ? 'home-background' : 'main-background')">
+
+<%=render partial: '/layouts/nav' %>
+
+<%= render partial: '/layouts/alerts' %>
+
+<div class="container-fluid">
+<%= yield %>
+</div>
+
+<%= render partial: '/layouts/footer' %>
+
+  </body>
+</html>

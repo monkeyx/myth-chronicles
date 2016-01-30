@@ -1,0 +1,36 @@
+<%
+	sections = []
+
+	def unit_stats(race)
+		Unit.new(race: race).race_stats_table
+	end
+
+	sections << {
+		title: 'Skeleton',
+		icon: 'items/skeleton.png',
+		body: "<p>The weakest of the undead, skeletons are effective in mass numbers only. Being nothing more than bones they are difficult to pierce with ranged weapons. Towers built on Plains can raise skeletons.</p>" + unit_stats('Skeleton') + 
+		"<p><strong>Evasive</strong>: Skeletons take half damage from ranged weapons.</p>"
+	}
+
+	sections << {
+		title: 'Zombie',
+		icon: 'items/zombie.png',
+		body: "<p>Zombies are slow and stupid but their indomitable spirit means they continue to fight at full efficiency regardless of how much damage they have taken. That is, until they are destroyed. Towers built in Forests can raise zombies.</p>" + unit_stats('Zombie') +
+		"<p><strong>Stupid</strong>: Zombies are difficult to train and cost double the normal gold to learn.</p>
+		<p><strong>Indomitable</strong>: Damage doesn't reduce their effectiveness in combat.</p>"
+	}
+
+	sections << {
+		title: 'Vampire',
+		icon: 'items/vampire.png',
+		body: "<p>The elusive vampires are the prized warriors of a Necromancer's army. Fiendishly intelligent they are are also capable of flying. Towers hidden in the Mountains can call forth vampires.</p>" + unit_stats('Vampire') +
+		"<p><strong>Smart</strong>: Costs half the usual gold to train units of Vampires.</p>
+		<p><strong>Flying</strong>: Vampires are naturally capable of air movement. They cannot use siege equipment.</p>"
+	}
+%>
+<% content_for :overview do %>
+<p>Undead are raised at <a href='/docs/settlements#towers'>Towers</a> to serve a <a href='/docs/characters#necromancer'>Necromancer</a>. They can use <a href='/docs/armour'>armour</a> and <a href='/docs/weapons'>weapons</a> but no <a href='/docs/beasts'>beast</a> will let one ride them.</p></p>
+
+<p><strong>Fearless</strong>: All undead are immune to psychology and as such will never flee a battle.</p>
+<% end %>
+<%=render partial: '/docs/template', locals: {title: 'Undead', url: 'undead', sections: sections} %>
