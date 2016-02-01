@@ -53,7 +53,7 @@ module ActionTypes
 		UnitTacticsAction
 	]
 
-	PARAMS_WITH_OPTIONS = ['challenge_id', 'alliance_id', 'army_id', 'item_id', 'owned_item_id', 'produceable_item_id', 'ritualable_item_id', 'race_item_id', 'trade_good_id', 'spell', 'character_id', 'member_id','unit_id', 'direction', 'attribute', 'training', 'tactic', 'position_id', 'owned_position_id']
+	PARAMS_WITH_OPTIONS = ['challenge_id', 'alliance_id', 'army_id', 'item_id', 'owned_item_id', 'produceable_item_id', 'ritualable_item_id', 'race_item_id', 'trade_good_id', 'spell', 'character_id', 'character_present_id', 'member_id','unit_id', 'direction', 'attribute', 'training', 'tactic', 'position_id', 'owned_position_id']
 
 	def action_name(klass)
 		klass.to_s.gsub('Action','')
@@ -99,6 +99,8 @@ module ActionTypes
 			@param_spells ||= Character::CHARACTER_SPELLS[self.character.character_type].map{|s| {value: s, display: s}}
 		when 'character_id'
 			@param_character ||= Character.in_game(game).where(["positions.id <> ?",id]).order_by_name.map{|a| {value: a.id, display: a.to_s }}
+		when 'character_present_id'
+			@param_character ||= Character.in_game(game).at_loc(location).where(["positions.id <> ?",id]).order_by_name.map{|a| {value: a.id, display: a.to_s }}
 		when 'member_id'
 			@param_member ||= AllianceMember.for_alliance(alliance).where(["member_id <> ?",id]).sort{|a,b| a.member.name <=> b.member.name}.map{|a| {value: a.member.id, display: a.member.to_s }}
 		when 'unit_id'

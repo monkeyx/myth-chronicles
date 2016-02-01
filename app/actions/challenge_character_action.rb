@@ -1,7 +1,7 @@
 class ChallengeCharacterAction < BaseAction
 	
 	PARAMETERS = {
-			'character_id': { required: true, type: 'integer'}
+			'character_present_id': { required: true, type: 'integer'}
 		}
 
 	POSITION_TYPE = [Character]
