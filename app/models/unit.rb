@@ -201,8 +201,8 @@ class Unit < ActiveRecord::Base
 		elsif self.armour
 			s = "#{self.armour.name} #{s}"
 		end
-		s = "#{self.health} #{s} on #{self.mount.name.downcase.pluralize}" if self.mount
-		s
+		s = "#{s} on #{self.mount.name.downcase.pluralize}" if self.mount
+		"#{self.health} #{s}"
 	end
 
 	def adjusted_strength_rating
