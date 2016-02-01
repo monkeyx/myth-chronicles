@@ -192,7 +192,8 @@ class Unit < ActiveRecord::Base
 	end
 
 	def to_s
-		s = self.character ? self.character.to_s : self.race.pluralize 
+		return self.character.to_s if self.character
+		s = "#{self.race.pluralize(self.health)}" 
 		if self.weapon && self.armour 
 			s = "#{self.weapon.name}-#{self.armour.name} #{s}"
 		elsif self.weapon
@@ -200,7 +201,7 @@ class Unit < ActiveRecord::Base
 		elsif self.armour
 			s = "#{self.armour.name} #{s}"
 		end
-		s = "#{s} on #{self.mount.name.downcase.pluralize}" if self.mount
+		s = "#{self.health} #{s} on #{self.mount.name.downcase.pluralize}" if self.mount
 		s
 	end
 
