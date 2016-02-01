@@ -136,7 +136,7 @@ module Spatial
 
 		scope :at, ->(x,y) { where({x: x, y: y})}
 		scope :at_loc, ->(loc) { at(loc.x, loc.y)}
-		scope :at_id, ->(loc_id) { where(location_id: loc_id )}
+		scope :at_id, ->(loc_id) { where(["location_id LIKE ?", "%#{loc_id.gsub(', ', ',').gsub(',', ', ')}%"])}
 		scope :in_game, ->(game) { where({game_id: game.id })}
 
 		def self.around_block(x, y, range)
