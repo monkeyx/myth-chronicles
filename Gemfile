@@ -25,6 +25,7 @@ gem 'kaminari', '0.15.1'
 gem 'forem-gfm_formatter'
 gem 'forem-bootstrap', :github => "radar/forem-bootstrap"
 gem 'mailboxer'
+gem 'mailchimp-api', require: 'mailchimp'
 
 group :production do 
 	gem 'rails_12factor'

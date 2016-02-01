@@ -93,6 +93,14 @@ namespace :myth do
         end
     end
 
+    desc "Subscribe users to mailchimp"
+    task mc_sub: :environment do 
+        User.find_each do |user|
+            user.add_to_mailchimp
+            puts "#{user} subbed"
+        end
+    end
+
     task 'resque:setup' => :environment
 
     def create_character(game, user)

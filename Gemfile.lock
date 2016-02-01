@@ -135,6 +135,9 @@ GEM
       carrierwave (>= 0.5.8)
       foreigner (>= 0.9.1)
       rails (>= 3.2.0)
+    mailchimp-api (2.0.6)
+      excon (>= 0.16.0)
+      json (>= 1.7.7)
     mandrill-api (1.0.53)
       excon (>= 0.16.0, < 1.0)
       json (>= 1.7.7, < 2.0)
@@ -301,6 +304,7 @@ DEPENDENCIES
   kaminari (= 0.15.1)
   lograge
   mailboxer
+  mailchimp-api
   mandrill_mailer
   pg
   puma

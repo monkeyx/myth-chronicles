@@ -16,6 +16,7 @@ class User < ActiveRecord::Base
 	scope :with_auth_token, ->(token) { where(auth_token: token )}
 
 	after_save :setup_if_ready
+	after_create :add_to_mailchimp
 
 	before_validation :set_colour_if_none
 
@@ -61,7 +62,7 @@ class User < ActiveRecord::Base
 	end
 
 	def to_s
-		"#{name} (G#{game.id})"
+		self.game ? "#{name} (G#{game.id})" : "#{name}"
 	end
 
 	def forem_name
@@ -89,6 +90,20 @@ class User < ActiveRecord::Base
 	def set_colour_if_none
 		if self.colour.nil?
 			self.colour = User.random_colour
+		end
+	end
+
+	def add_to_mailchimp
+		begin
+			Mailchimp::API.new(ENV['MAILCHIMP_API']).lists.subscribe(ENV['MAILCHIMP_LIST'],
+			{
+				"email" => self.email,
+				"euid" => self.id,
+				"leid" => self.id,
+			},
+			{"FNAME" => self.name})
+		rescue Exception => e
+			puts e 
 		end
 	end
 
