@@ -45,13 +45,13 @@ class MoveArmyAction < BaseAction
 			return false
 		end
 
-		if hex.impassable? && hex.water? && !(self.position.movement_sea? || self.position.movement_air?)
-			add_error('movement_sea')
+		if hex.impassable? && !hex.water? && !self.position.movement_air?
+			add_error('movement_impassable')
 			return false
 		end
 
-		if hex.impassable? && !self.position.movement_air?
-			add_error('movement_impassable')
+		if hex.impassable? && hex.water? && !(self.position.movement_sea? || self.position.movement_air?)
+			add_error('movement_sea')
 			return false
 		end
 

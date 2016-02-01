@@ -37,7 +37,7 @@ Item.create!(name: 'Vampire', complexity: 1000, terrain: 'Mountain', undead: tru
 Rails.logger.info "SEED: Creating Elementals"
 Item.create!(name: 'Imp', complexity: 10, terrain: 'Desert', elemental: true, race: 'Imp', sea_transport_capacity: -1, land_transport_capacity: 0, air_transport_capacity: -1)
 Item.create!(name: 'Serpent', complexity: 100, terrain: 'Sea', elemental: true, race: 'Serpent', sea_transport_capacity: 1, land_transport_capacity: 1, air_transport_capacity: -1)
-Item.create!(name: 'Valkyrie', complexity: 1000, terrain: 'Mountain', elemental: true, flying: true, race: 'Valkyrie', sea_transport_capacity: -1, land_transport_capacity: 1, air_transport_capacity: 1)
+Item.create!(name: 'Valkyrie', complexity: 1000, terrain: 'Mountain', elemental: true, flying: true, race: 'Valkyrie', sea_transport_capacity: 0, land_transport_capacity: 1, air_transport_capacity: 1)
 
 # Armour
 Rails.logger.info "SEED: Creating Armour"
