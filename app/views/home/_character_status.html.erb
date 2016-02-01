@@ -11,8 +11,8 @@
 				<span id="status-gold" uib-tooltip="Gold" tooltip-placement="bottom"><img src="/icons/gold.png" title="Gold" class="icon">
 					{{character.gold}}</span>
 				<span class="span-separator"></span>
-				<span id="status-armies" class="dropdown" ng-if="armies" uib-dropdown is-open="status.isArmiesOpen" uib-tooltip="Armies" tooltip-placement="bottom">
-					<a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" uib-dropdown-toggle ng-disabled="disabled"><img class="icon" src="/icons/army.png" title="Armies">
+				<span id="status-armies" class="dropdown" ng-if="armies" uib-dropdown is-open="status.isArmiesOpen">
+					<a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" uib-dropdown-toggle ng-disabled="disabled"><img class="icon" src="/icons/army.png" title="Armies" uib-tooltip="Armies" tooltip-placement="bottom">
 					{{character.army_count}}<span class="caret"></span></a>
 					<ul class="dropdown-menu">
 						<li ng-repeat="position in armies"><a ui-sref="user.position({posType: position.type, posId: position.id})">{{position.name}} ({{position.id}})</a></li>

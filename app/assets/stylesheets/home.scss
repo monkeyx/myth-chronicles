@@ -12,13 +12,23 @@
 }
 
 #main .home-content {
-   position: fixed;
-   top: 170px;
-   left: 65px;
+   position: absolute;
+   top: 150px;
+   left: 5px;
    width: 90%;
    height: 80%;
    overflow: scroll;
    border: 0;
+}
+
+#main .home-header {
+  position: absolute;
+  top: 40px;
+  left: 5px;
+  width: 90%;
+  border: none;
+  padding-left: 0px;
+  padding-bottom: 0px;
 }
 
 .home-background {
