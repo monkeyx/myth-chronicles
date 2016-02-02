@@ -14,6 +14,7 @@ mythChronicles.run(['$rootScope', '$state', '$templateCache', '$http', 'actionSe
     $rootScope.$on('auth:session-expired', function() {
   		console.log('Session expired');
   		$rootScope.loggedIn = false;
+      $rootScope.notLoggedIn = true;
       $rootScope.currentUser = null;
       alertService.clear();
       positionService.clear();
@@ -24,6 +25,7 @@ mythChronicles.run(['$rootScope', '$state', '$templateCache', '$http', 'actionSe
   	$rootScope.$on('auth:validation-error', function() {
   		console.log('Token validation failed');
   		$rootScope.loggedIn = false;
+      $rootScope.notLoggedIn = true;
       $rootScope.currentUser = null;
       alertService.clear();
       positionService.clear();
@@ -34,6 +36,7 @@ mythChronicles.run(['$rootScope', '$state', '$templateCache', '$http', 'actionSe
   	$rootScope.$on('auth:validation-success', function(ev, user) {
   		console.log('Successful token validation');
       $rootScope.loggedIn = true;
+      $rootScope.notLoggedIn = false;
       $rootScope.currentUser = user;
       console.log('User: ');
       console.log($rootScope.currentUser);
@@ -46,6 +49,7 @@ mythChronicles.run(['$rootScope', '$state', '$templateCache', '$http', 'actionSe
   	$rootScope.$on('auth:login-error', function() {
   		console.log('Failed to login');
   		$rootScope.loggedIn = false;
+      $rootScope.notLoggedIn = true;
       $rootScope.currentUser = null;
       alertService.clear();
       positionService.clear();
@@ -56,6 +60,7 @@ mythChronicles.run(['$rootScope', '$state', '$templateCache', '$http', 'actionSe
     $rootScope.$on('auth:invalid', function() {
       console.log('Auth invalid');
       $rootScope.loggedIn = false;
+      $rootScope.notLoggedIn = true;
       $rootScope.currentUser = null;
       alertService.clear();
       positionService.clear();
@@ -66,6 +71,7 @@ mythChronicles.run(['$rootScope', '$state', '$templateCache', '$http', 'actionSe
     $rootScope.$on('auth:login-success', function(ev, user) {
   		console.log('Successful login');
       $rootScope.loggedIn = true;
+      $rootScope.notLoggedIn = false;
       $rootScope.currentUser = user;
       console.log('User: ');
       console.log($rootScope.currentUser);
@@ -79,6 +85,7 @@ mythChronicles.run(['$rootScope', '$state', '$templateCache', '$http', 'actionSe
       console.log('Logout successful');
       $rootScope.showLoadingIndicator = false;
       $rootScope.loggedIn = false;
+      $rootScope.notLoggedIn = true;
       $rootScope.currentUser = null;
       alertService.clear();
       positionService.clear();
