@@ -40,8 +40,9 @@ class CycleGame
 	def self.character_pool_generation!(game)
 		Rails.logger.info "Cycle Game: #{game}: Character Pool Regeneration"
 		Character.in_game(game).find_each do |character|
-			character.cycle_generation!
-			ActionReport.add_report!(character, 'Regeneration', I18n.translate("cycles.character.regeneration", {character: character, action_points: character.action_points, mana_points: character.mana_points}), character)
+			if character.cycle_generation!
+				ActionReport.add_report!(character, 'Regeneration', I18n.translate("cycles.character.regeneration", {character: character, action_points: character.action_points, mana_points: character.mana_points}), character)
+			end
 		end
 	end
 

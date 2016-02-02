@@ -332,13 +332,21 @@ class Character < ActiveRecord::Base
 	# Pool Generation
 	#
 	def cycle_generation!
+		changed = false
 		transaction do
-			add_mana_points!(self.game.mana_points_generated)
-			add_action_points!(self.game.action_points_generated)
-			if dragon? || necromancer?
-				add_mana_points!((MANA_POINTS_PER_TOWER_OR_LAIR * settlements.count))
+			unless max_mana_points == self.mana_points
+				changed = true
+				add_mana_points!(self.game.mana_points_generated)
+				if dragon? || necromancer?
+					add_mana_points!((MANA_POINTS_PER_TOWER_OR_LAIR * settlements.count))
+				end
+			end
+			unless max_action_points == self.action_points
+				changed = true
+				add_action_points!(self.game.action_points_generated)
 			end
 		end
+		changed
 	end
 
 	def check_quests!
