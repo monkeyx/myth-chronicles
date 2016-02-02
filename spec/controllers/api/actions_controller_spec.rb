@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Api::ActionController, type: :controller do
+RSpec.describe Api::ActionsController, type: :controller do
 	include PositionFactory
 	
 	after(:each) do 

@@ -47,7 +47,7 @@ namespace :myth do
         Rake::Task['db:seed'].invoke
         ActiveRecord::Base.establish_connection
         Rake::Task['db:migrate'].invoke
-        game = Game.create!(name: 'Test', map_size: 100)
+        game = Game.create!(name: 'Test', map_name: "1", cycle_frequency: 1)
     end
 
     desc "Opens a game"

@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe UsersController, type: :controller do
+RSpec.describe Api::UsersController, type: :controller do
 	before(:each) do 
 		@game = Game.first
 		@params = {user: {name: "#{rand(1000)}-name", email: "#{rand(1000)}@test.com", password: 'password', password_confirmation: 'password_confirmation', game_id: @game.id, character_type: 'Lord'}}
