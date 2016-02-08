@@ -32,7 +32,7 @@ class UserMailer < MandrillMailer::TemplateMailer
 
 	def new_message_email(message,receiver_id)
 		receiver = User.find(receiver_id)
-		standard_email(receiver, "[Myth Chronciles] New message received",message.subject,["<p>
+		standard_email(receiver, "[Myth Chronicles] New message received",message.subject,["<p>
       You have received a new message:
     </p>
     <blockquote>
@@ -44,7 +44,7 @@ class UserMailer < MandrillMailer::TemplateMailer
 
 	def reply_message_email(message,receiver_id)
 		receiver = User.find(receiver_id)
-		standard_email(receiver, "[Myth Chronciles] Reply message received",message.subject,["<p>
+		standard_email(receiver, "[Myth Chronicles] Reply message received",message.subject,["<p>
 	      You have received a new reply:
 	    </p>
 	    <blockquote>
@@ -58,7 +58,7 @@ class UserMailer < MandrillMailer::TemplateMailer
 		post = Forem::Post.find(post_id)
         topic = post.topic
         user = User.find(user_id)
-		standard_email(user, "[Myth Chronciles] A topic you have subscribed to has received a reply.",topic.subject,["<p>
+		standard_email(user, "[Myth Chronicles] A topic you have subscribed to has received a reply.",topic.subject,["<p>
       A topic you have subscribed to has received a reply:
     </p>
     <blockquote>
