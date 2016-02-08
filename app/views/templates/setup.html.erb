@@ -63,24 +63,32 @@
 					<img class="pointer" src="/icons_original/hero.png" width="120" height="120" uib-tooltip="High Strength and Armour. May use all magical items. Can cast Bless, Heal and Teleport spells." ng-click="selectCharacterType('Hero')">
 					<p>Heroes are explorers of dungeons, tamers of beasts and guild masters.
 					</p>
+					<p><strong>Playstyle</strong>: Explorer</p>
+					<p><strong>Difficulty</strong> Easy</p>
 				</div>
 				<div class="col-xs-12 col-md-6 col-lg-3" ng-if="game.available_spaces.lord">
 					<h3>Lord</h3>
 					<img class="pointer" src="/icons_original/lord.png" width="120" height="120" uib-tooltip="High Leadership and Cunning. May use magical armour, weapons and amulets. Can cast Bless and Heal spells." ng-click="selectCharacterType('Lord')">
 					<p>Lords are masters of humanoid cities and leaders of alliances.
 					</p>
+					<p><strong>Playstyle</strong>: Builder</p>
+					<p><strong>Difficulty</strong> Normal</p>
 				</div>
 				<div class="col-xs-12 col-md-6 col-lg-3" ng-if="game.available_spaces.necromancer">
 					<h3>Necromancer</h3>
 					<img class="pointer" src="/icons_original/necromancer.png" width="120" height="120" uib-tooltip="Legendary Craft, May use magical weapons, amulets and rings. Can cast Heal, Ritual, Scry and Teleport spells." ng-click="selectCharacterType('Necromancer')">
 					<p>Necromancers are raisers of the dead and the most skilled spellcasters.
 					</p>
+					<p><strong>Playstyle</strong>: Horde</p>
+					<p><strong>Difficulty</strong> Hard</p>
 				</div>
 				<div class="col-xs-12 col-md-6 col-lg-3" ng-if="game.available_spaces.dragon">
 					<h3>Dragon</h3>
 					<img class="pointer" src="/icons_original/dragon.png" width="120" height="120" uib-tooltip="Legendary Strength and Armour. May use magical amulets and rings. Can cast Ritual and Scry spells." ng-click="selectCharacterType('Dragon')">
 					<p>Dragons are fearsome flying monsters, cunning artificers supported by elemental creatures.
 					</p>
+					<p><strong>Playstyle</strong>: Destroyer</p>
+					<p><strong>Difficulty</strong> Very Hard</p>
 				</div>
 			</div>
 			<div ng-if="setup.character_type">

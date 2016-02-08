@@ -29,10 +29,12 @@ class User < ActiveRecord::Base
 	end
 
 	def send_completion!
-      UserMailer.setup_complete(self.id).deliver
+		return unless SEND_EMAILS
+     	UserMailer.setup_complete(self.id).deliver
     end
 
     def send_update!
+    	return unless SEND_EMAILS
     	updates = status_updates
     	return unless updates.count > 0
     	updates = ["<h2>Dear #{name}</h2>
@@ -46,6 +48,7 @@ class User < ActiveRecord::Base
     end
 
     def send_character_killed!(character, reason)
+    	return unless SEND_EMAILS
     	UserMailer.character_killed(self.id, character.id, reason).deliver
     end
 

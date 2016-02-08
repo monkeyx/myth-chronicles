@@ -45,6 +45,8 @@ module MythChronicles
 
     config.exceptions_app = self.routes
 
+    config.active_job.queue_adapter = :resque
+
     unless Rails.env.test?
       log_level = String(ENV['LOG_LEVEL'] || "info").upcase
       config.logger = Rails.env.development? ? Logger.new("#{Rails.root}/log/development.log") : Logger.new(STDOUT)
