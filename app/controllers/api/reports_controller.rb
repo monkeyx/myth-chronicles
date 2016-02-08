@@ -21,7 +21,7 @@ class Api::ReportsController < Api::BaseController
 		rows = {}
 		hexes.each do |hex|
 			rows[hex.y] ||= {}
-			rows[hex.y][hex.x] = hex
+			rows[hex.y][hex.x] = hex.as_json({show_dungeons: current_user.character.hero? })
 		end
 		render json: rows, status: :ok
 	end

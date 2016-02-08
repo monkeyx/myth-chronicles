@@ -46,7 +46,7 @@ class Hex < ActiveRecord::Base
 	end
 
 	def as_json(options={})
-		{
+		json = {
 			id: location_id,
 			x: x,
 			y: y,
@@ -61,12 +61,15 @@ class Hex < ActiveRecord::Base
 			city: city ? {id: city.id, name: city.name} : nil,
 			tower: tower ? {id: tower.id, name: tower.name} : nil,
 			lair: lair ? {id: lair.id, name: lair.name} : nil,
-			dungeon: dungeon,
 			territory: {
 				id: territory_id,
 				name: (territory ? territory.name : nil),
 				colour: territory_colour
 			}
 		}
+		if options[:show_dungeons]
+			json[:dungeon] = dungeon
+		end
+		json
 	end
 end
