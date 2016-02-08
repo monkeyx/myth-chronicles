@@ -3,6 +3,7 @@
 mythChronicles.controller('MapCtrl', ['$scope', '$rootScope', 'positionService',
     function($scope, $rootScope, positionService){
     $scope.checked = false;
+    $scope.loadingMap = true;
 
     $scope.element        = document.getElementById("stage");
     $scope.element.height = window.innerHeight;
@@ -212,6 +213,7 @@ mythChronicles.controller('MapCtrl', ['$scope', '$rootScope', 'positionService',
     }
 
     $scope.show = function(){
+        $scope.loadingMap = true;
         $rootScope.$emit('myth:mapShown');
         positionService.lastPosition().then(function(position){
             // console.log('GOT LAST POSITION');
@@ -223,6 +225,7 @@ mythChronicles.controller('MapCtrl', ['$scope', '$rootScope', 'positionService',
                 // console.log($scope.map);
                 DrawMap();
                 $scope.checked = true;
+                $scope.loadingMap = false;
             });
         });
     }
