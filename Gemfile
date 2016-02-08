@@ -26,6 +26,8 @@ gem 'forem-gfm_formatter'
 gem 'forem-bootstrap', :github => "radar/forem-bootstrap"
 gem 'mailboxer'
 gem 'mailchimp-api', require: 'mailchimp'
+gem 'rails_admin'
+gem 'cancancan'
 
 group :production do 
 	gem 'rails_12factor'
