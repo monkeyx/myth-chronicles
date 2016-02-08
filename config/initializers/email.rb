@@ -31,4 +31,5 @@ ActionMailer::Base.smtp_settings = {
 
 MandrillMailer.configure do |config|
   config.api_key = MANDRILL_API_KEY
+  config.deliver_later_queue_name = :email
 end

@@ -93,8 +93,9 @@ class UserMailer < MandrillMailer::TemplateMailer
 	end
 
 	def user_vars(user, header, sections_html, sections_text=sections_html)
+		email = Rails.env.production? ? user.email : 'gm@mythchronicles.com'
 		vars = {
-			user.email =>
+			email =>
 			{
 				'name' => user.name,
 				'header' => header,
@@ -106,6 +107,10 @@ class UserMailer < MandrillMailer::TemplateMailer
 	end
 
 	def user_to(user)
-		{email: user.email, name: user.name }
+		unless Rails.env.production?
+			{email: 'gm@mythchronicles.com', name: 'GM Test' }
+		else
+			{email: user.email, name: user.name }
+		end
 	end
 end
