@@ -23,7 +23,7 @@ class Position < ActiveRecord::Base
 	scope :owned_by, ->(owner) { where(owner_id: owner.id ) }
 	scope :player, -> { where("owner_id IS NOT NULL AND owner_id <> 0")}
 	scope :barbarian, -> { where("owner_id IS NULL OR owner_id = 0")}
-	scope :for_user, ->(user) { where(["id = ? OR owner_id = ?", user.character.id, user.character.id])}
+	scope :for_user, ->(user) { where(["positions.id = ? OR owner_id = ?", user.character.id, user.character.id])}
 	scope :not_killed, -> { where(killed: false )}
 	scope :killed, -> { where(killed: true )}
 	scope :order_by_name, -> { order("name ASC")}
