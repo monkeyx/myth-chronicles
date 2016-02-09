@@ -6,7 +6,7 @@ class Sell < Market
 	end
 
 	def transaction_cost(other_position)
-		cost = (self.position.distance(other_position) / 5).round
+		cost = (self.position.distance(other_position) / 10).round
 		cost = 1 if cost < 1
 		cost
 	end

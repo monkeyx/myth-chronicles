@@ -1,15 +1,39 @@
 <%
+	def item_prices_table
+		scope = Item.not_hidden.ritualable.order_by_name
+		table = "<table class='table table-striped'>
+			<tbody>
+				<tr>
+					<th>Item</th>
+					<th>Cost (in gold)</th>
+				</tr>
+		"
+		scope.each do |item|
+			table = table + "
+			<tr>
+				<td>#{item}</td>
+				<td>#{item.complexity}</td>
+			</tr>"
+		end
+		table + "</table>"
+	end
+
 	sections = []
 
 	sections << {
 		title: 'Transaction Charges',
-		body: "<p>Trade caravans will charge 1 gold for every 3 hexes they had to transport a good, adding this charge to the effective sell price of the item when looking for potential matches with buyers.</p>"
+		body: "<p>Trade caravans will charge 1 gold for every 10 hexes they had to transport a good, adding this charge to the effective sell price of the item when looking for potential matches with buyers.</p>"
 	}
 
 	sections << {
 		title: 'Unsold Items',
 		body: "<p>Any items listed to buy or sell but not matched during the cycle update will remain listed until the player changes the listing by giving new instructions to the settlement.</p>
 			<p>A settlement without the item to sell or gold to buy will not be considered for trade in a particular cycle but the buy or sell listing will remain for the future should circumstances change.</p>"
+	}
+
+	sections << {
+		title: 'Early Backup Market',
+		body: "<p>During the early phases of a game, buyers will be able to buy from a global backup market all non-magical items at a fixed price. The availability of these items lasts until there are more players than neutral cities in the game.</p>" + item_prices_table
 	}
 %>
 <% content_for :overview do %>

@@ -1,5 +1,9 @@
 class Buy < Market
 
+	def backup_market_open?
+		self.position.game.neutral_cities > Position.in_game(self).settlement.player.count
+	end
+
 	def potential_sellers
 		Sell.in_game(self.position.game).for_item(self.item).select do |sell|
 			sell.actual_quantity > 0 && sell.actual_price(self.position) <= self.price
@@ -8,7 +12,20 @@ class Buy < Market
 
 	def complete_sale!
 		transaction do
-			potential_sellers.each do |sell|
+			list = potential_sellers
+			if list.empty? && backup_market_open? && self.item.ritualable && self.price >= self.item.complexity # backup market
+				max_buy = (self.position.owner.gold / self.price).to_i
+				qty = self.quantity > max_buy ? max_buy : self.quantity
+				buyer_cost = qty * price
+				if qty > 0
+					self.position.add_items!(self.item, qty)
+					self.position.owner.use_gold!(buyer_cost)
+					update_attributes!(quantity: (self.quantity - qty))
+					ActionReport.add_report!(self.position, 'Buy', I18n.translate("trade.buy", {item: self.item, quantity: qty, gold: buyer_cost}), self.position)
+				end
+				return self.quantity < 1
+			end
+			list.each do |sell|
 				qty = sell.actual_quantity
 				qty = self.quantity if self.quantity < qty
 				price = sell.actual_price(self.position)
