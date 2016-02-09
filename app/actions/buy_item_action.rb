@@ -34,20 +34,29 @@ class BuyItemAction < BaseAction
 			return false
 		end
 		quantity = params['quantity'].to_i
-		unless quantity > 0
+		unless quantity >= 0
 			add_error('invalid_quantity')
 			return false
 		end
 		price = params['price'].to_i
-		unless price > 0
+		unless price >= 0
 			add_error('invalid_price')
 			return false
 		end
 		buy = Buy.where(position: self.position.position, item: item).first
-		unless buy
-			Buy.create!(position: self.position.position, item: item, quantity: quantity, price: price)
+		if quantity == 0
+			if buy
+				buy.destroy
+			else
+				add_error('invalid_quantity')
+				return false
+			end
 		else
-			buy.update_attributes!(quantity: quantity, price: price)
+			unless buy
+				Buy.create!(position: self.position.position, item: item, quantity: quantity, price: price)
+			else
+				buy.update_attributes!(quantity: quantity, price: price)
+			end
 		end
 		add_report({item: item, quantity: quantity, price: price})
 		return true

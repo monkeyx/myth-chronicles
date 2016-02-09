@@ -68,9 +68,21 @@ class Api::MessagesController < Api::BaseController
 				end
 				recipient = character.user
 			else
-				recipient = User.where(id: params[:user_id]).first
-				unless recipient
-					return head :not_found
+				unless params[:user_id].blank? && current_user.admin?
+					recipient = User.where(id: params[:user_id]).first
+					unless recipient
+						return head :not_found
+					end
+				else # admin broadcast
+					subject = params[:subject]
+					unless subject.blank?
+						User.all.each do |recipient|
+							current_user.send_message(recipient, body, subject)
+						end
+						return render json: {success: true}, status: :ok
+					else
+						return render json: {error: 'Invalid subject'}, status: :unprocessable_entity
+					end
 				end
 			end
 

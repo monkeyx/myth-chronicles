@@ -21,21 +21,29 @@ namespace :myth do
     task :create_gm, [:password] => :environment do |name, args|
         p = args[:password] || 'password'
         g = Game.first
-        u = User.create(name: 'World Shaker', email: 'monkeyx@gmail.com', forem_admin: true, password: p, password_confirmation: p, character_type: 'Dragon')
+        u = User.create(name: 'World Shaker', email: 'monkeyx@gmail.com', admin: true, forem_admin: true, password: p, password_confirmation: p, character_type: 'Dragon')
         create_character(g, u) && SetupUser.setup!(u)
         Item.not_magical.not_hidden.each{|i| s = u.character.settlements.first; s.add_items!(i, 1000)} if Rails.env.development?
-        u = User.create(name: 'Gamesmaster', email: 'gm@mythchronicles.com', forem_admin: true, password: p, password_confirmation: p, character_type: 'Lord')
+        u = User.create(name: 'Gamesmaster', email: 'gm@mythchronicles.com', admin: true, forem_admin: true, password: p, password_confirmation: p, character_type: 'Lord')
         create_character(g, u) && SetupUser.setup!(u)
         Item.not_magical.not_hidden.each{|i| s = u.character.settlements.first; s.add_items!(i, 1000)} if Rails.env.development?
-        u = User.create(name: 'Odysseus', email: 'gm-hero@mythchronicles.com', forem_admin: true, password: p, password_confirmation: p, character_type: 'Hero')
+        u = User.create(name: 'Odysseus', email: 'gm-hero@mythchronicles.com', admin: true, forem_admin: true, password: p, password_confirmation: p, character_type: 'Hero')
         create_character(g, u) && SetupUser.setup!(u)
         Item.not_magical.not_hidden.each{|i| s = u.character.settlements.first; s.add_items!(i, 1000)} if Rails.env.development?
-        u = User.create(name: 'White Wizard', email: 'gm-necromancer@mythchronicles.com', forem_admin: true, password: p, password_confirmation: p, character_type: 'Necromancer')
+        u = User.create(name: 'White Wizard', email: 'gm-necromancer@mythchronicles.com', admin: true, forem_admin: true, password: p, password_confirmation: p, character_type: 'Necromancer')
         create_character(g, u) && SetupUser.setup!(u)
         Item.not_magical.not_hidden.each{|i| s = u.character.settlements.first; s.add_items!(i, 1000)} if Rails.env.development?
-        u = User.create(name: 'Simar', email: 'gm-dragon@mythchronicles.com', forem_admin: true, password: p, password_confirmation: p, character_type: 'Dragon')
+        u = User.create(name: 'Simar', email: 'gm-dragon@mythchronicles.com', admin: true, forem_admin: true, password: p, password_confirmation: p, character_type: 'Dragon')
         create_character(g, u) && SetupUser.setup!(u)
         Item.not_magical.not_hidden.each{|i| s = u.character.settlements.first; s.add_items!(i, 1000)} if Rails.env.development?
+    end
+
+    desc "Make user an admin"
+    task :make_admin, [:email] => :environment do |name, args|
+        e = args[:email]
+        raise "Invalid email" if e.blank?
+        u = User.where(email: e).first
+        u.update_attributes!(admin: true, forem_admin: true)
     end
 
     desc "Setup test database - drops, loads schema, migrates and seeds the test db"

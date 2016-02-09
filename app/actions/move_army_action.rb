@@ -64,27 +64,9 @@ class MoveArmyAction < BaseAction
 		if hex.difficult? && (!self.position.movement_air? || (hex.water? && self.position.movement_sea?))
 			self.action_point_cost *= 2
 		end
+
+		self.position.move!(new_location)
 		
-		self.position.location = new_location
-		self.position.guarding = false
-		
-		settlement = self.position.sieging
-		if settlement
-			unless Army.in_game(self.position.game).at_loc(old_location).where(["armies.id <> ?", self.position.id]).any? {|army| army.sieging && army.sieging.id == settlement.id }
-				settlement.under_siege = false
-				settlement.save!
-			end
-			self.position.sieging = nil
-		end
-
-		self.position.save!
-
-		self.position.scout!(hex)
-
-		Army.in_game(self.position.game).at_loc(self.position.location).where(["armies.id <> ?", self.position.id]).each do |army|
-			army.scout_army!(self.position, self.position)
-		end
-
 		add_report({terrain: hex.terrain})
 
 		return true

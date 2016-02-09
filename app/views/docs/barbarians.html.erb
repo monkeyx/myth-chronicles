@@ -1,0 +1,17 @@
+<%
+	sections = []
+
+	sections << {
+		title: 'Spawning',
+		body: "<p>A number of new barbarian army units will spawn every cycle depending on how many neutral cities remain in the game. They generally form as close to existing player settlements as possible without directly spawning within their territory.</p>"
+	}
+
+	sections << {
+		title: 'Movement',
+		body: "<p>Barbarian armies will move randomly every cycle whilst avoiding impassable terrain.</p><p>They will attack any other armies they come across.</p>"
+	}
+%>
+<% content_for :overview do %>
+<p>Barbarians rise up in armies outside of the territories claimed by players. Barbarians are <strong>hostile</strong> to all players and will attack anyone they meet.</p>
+<% end %>
+<%=render partial: '/docs/template', locals: {title: 'Barbarians', url: 'barbarians', sections: sections} %>

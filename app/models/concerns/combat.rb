@@ -4,13 +4,13 @@ module Combat
 	BATTLE_TYPES = ['Army','Challenge']
 	RANGE_NAME = ['Melee', 'Short', 'Long']
 
-	def self.simulator!(max=100)
+	def self.simulator!(max=100, generate_armies=true)
 		Character.all.each do |c|
 			(1..10).each do
 				Army.create_random!(c)
 				print '#'
 			end
-		end
+		end if generate_armies
 		puts
 		n = 0
 		while n < max && (armies = Army.not_empty.no_characters).count > 1 do 
@@ -197,7 +197,7 @@ module Combat
 					else
 						difficulty += 21
 					end
-					n = 1 + rand(6) + unit.army.owner.leadership_rating + unit.adjusted_morale_rating + unit.bless_rating
+					n = 1 + rand(6) + (unit.army.owner ? unit.army.owner.leadership_rating : 0) + unit.adjusted_morale_rating + unit.bless_rating
 					if n < difficulty
 						if attacker?(unit)
 							self.attacker_units_table[unit][:routed] = true
@@ -443,12 +443,12 @@ module Combat
 			
 			if is_a?(Army)
 				if self.unit_count < 1
-					ActionReport.add_report!(self.owner, 'Army Disbanded', I18n.translate("cycles.army.disbanded", {army: self}), self)
+					ActionReport.add_report!(self.owner, 'Army Disbanded', I18n.translate("cycles.army.disbanded", {army: self}), self) if self.owner
 					self.destroy
 				end
 
 				if other_position.unit_count < 1
-					ActionReport.add_report!(other_position.owner, 'Army Disbanded', I18n.translate("cycles.army.disbanded", {army: other_position}), self)
+					ActionReport.add_report!(other_position.owner, 'Army Disbanded', I18n.translate("cycles.army.disbanded", {army: other_position}), self) if other_position.owner
 					other_position.destroy
 				end
 
@@ -456,18 +456,22 @@ module Combat
 					unless other_position.destroyed?
 						other_position.flee!
 					end
-					gold = 0
-					(1..engine.defender_units_table.count).each{ gold += rand(6) + 1}
-					self.owner.add_gold!(gold)
-					ActionReport.add_report!(self.owner, 'Loot', I18n.translate("combat.loot", {army: other_position, gold: gold, location: location}), self)
+					if self.owner
+						gold = 0
+						(1..engine.defender_units_table.count).each{ gold += rand(6) + 1}
+						self.owner.add_gold!(gold) 
+						ActionReport.add_report!(self.owner, 'Loot', I18n.translate("combat.loot", {army: other_position, gold: gold, location: location}), self)
+					end
 				else
 					unless self.destroyed?
 						self.flee!
 					end
-					gold = 0
-					(1..engine.attacker_units_table.count).each{ gold += rand(6) + 1}
-					other_position.owner.add_gold!(gold)
-					ActionReport.add_report!(other_position.owner, 'Loot', I18n.translate("combat.loot", {army: self, gold: gold, location: location}), other_position)
+					if other_position.owner
+						gold = 0
+						(1..engine.attacker_units_table.count).each{ gold += rand(6) + 1}
+						other_position.owner.add_gold!(gold) 
+						ActionReport.add_report!(other_position.owner, 'Loot', I18n.translate("combat.loot", {army: self, gold: gold, location: location}), other_position)
+					end
 				end
 			end
 

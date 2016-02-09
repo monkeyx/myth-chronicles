@@ -323,7 +323,7 @@ class Character < ActiveRecord::Base
 				end
 			end
 			Rumour.report_character_death!(self, reason)
-			self.user.send_character_killed!(self, reason)
+			self.user.send_character_killed!(self, reason) if SEND_EMAILS
 			destroy
 		end
 	end

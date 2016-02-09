@@ -18,7 +18,6 @@ class Game < ActiveRecord::Base
 
 	has_many :hexes, dependent: :destroy
 	has_many :positions, dependent: :destroy
-	has_many :users
 	has_many :dungeons, dependent: :destroy
 	has_many :immortals, dependent: :destroy
 

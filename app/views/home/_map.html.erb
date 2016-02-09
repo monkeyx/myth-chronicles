@@ -12,6 +12,11 @@
                 <h3 class="panel-title"><button type="button" class="btn btn-default" ng-click="toggle()"><i class="fa fa-times"></i></button>&nbsp;Map</h3>
             </div>
             <div class="panel-body">
+                <div id="spinner" ng-if="loadingMap">
+                  <div class="hexdots-loader">
+                    Loading...
+                  </div>
+                </div>
                 <div class="row row-centered">
                     <div class="col-xs-12 col-centered">
                         <span class="label label-default">{{hoverLabel}}</span>

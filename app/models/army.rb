@@ -63,6 +63,17 @@ class Army < ActiveRecord::Base
 			army.calculate!
 		end
 	end
+
+	def create_race_unit!(race=terrain_city_recruitment, weapon='Axe', armour='Leather')
+		unit = Unit.create_unit!(self, Item.named(race).first)
+		weapon = Item.named(weapon).first unless weapon.nil? || weapon.is_a?(Item)
+		armour = Item.named(armour).first unless armour.nil? || armour.is_a?(Item)
+		unit.weapon = weapon if weapon
+		unit.armour = armour if armour
+		unit.save!
+		self.reload
+		self
+	end
 	
 	def subtype
 		'Army'
@@ -82,6 +93,30 @@ class Army < ActiveRecord::Base
 			self.location = hex.location
 			save!
 		end
+	end
+
+	def move!(new_location)
+		old_location = self.location
+		self.location = new_location
+		self.guarding = false
+		settlement = self.sieging
+		if settlement
+			unless Army.in_game(self.game).at_loc(old_location).where(["armies.id <> ?", self.id]).any? {|army| army.sieging && army.sieging.id == settlement.id }
+				settlement.under_siege = false
+				settlement.save!
+			end
+			self.position.sieging = nil
+		end
+		save!
+		hex = Hex.in_game(self.position.game).at_loc(new_location).first
+		scout!(hex)
+		Army.in_game(self.game).at_loc(self.location).where(["armies.id <> ?", self.id]).each do |army|
+			army.scout_army!(self, self)
+			if self.barbarian? || army.barbarian?
+				self.fight!(army)
+			end
+		end
+		self
 	end
 
 	def besiege!(settlement)
