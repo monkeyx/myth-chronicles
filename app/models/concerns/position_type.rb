@@ -76,6 +76,10 @@ module PositionType
 		self.position.owner = o
 	end
 
+	def barbarian?
+		self.position.barbarian?
+	end
+
 	def user
 		is_a?(Character) ? User.where(id: read_attribute(:user_id)).first : (owner ? owner.user : nil)
 	end

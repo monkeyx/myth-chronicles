@@ -17,6 +17,7 @@ class CycleGame
 				Rails.logger.info "Cycle Game: #{self.game}: START"
 				self.game.transaction do 
 					self.game.next_cycle!
+					CycleGame.spawn_barbarians!(self.game)
 					CycleGame.character_pool_generation!(self.game)
 					CycleGame.character_challenge_expiration!(self.game)
 					CycleGame.unit_health_regeneration!(self.game)
@@ -34,6 +35,21 @@ class CycleGame
 				Rails.logger.error "Cycle Game: #{options['id']}: ERROR #{e}"
 				Rails.logger.error e.backtrace
 			end
+		end
+	end
+
+	def self.spawn_barbarians!(game)
+		Rails.logger.info "Cycle Game: #{game}: Spawn Barbarians"
+		game.neutral_cities.times do
+			Position.create_barbarian!(game)
+		end
+	end
+
+	def self.move_barbarians!(game)
+		Rails.logger.info "Cycle Game: #{game}: Move Barbarians"
+		Position.in_game(game).army.barbarian.find_each do |barbarian|
+			hex = Hex.in_game(game).around(barbarian.location).not_impassable.to_a.sample
+			barbarian.army.move!(hex.location) if hex
 		end
 	end
 

@@ -14,10 +14,15 @@ class Position < ActiveRecord::Base
 	has_many :position_items, dependent: :delete_all
 	alias_method :items, :position_items
 	has_many :action_reports, dependent: :delete_all
+	has_one :character, foreign_key: 'id'
+	has_one :army, foreign_key: 'id'
+	has_one :settlement, foreign_key: 'id'
 
 	before_validation :set_founded_date
 
 	scope :owned_by, ->(owner) { where(owner_id: owner.id ) }
+	scope :player, -> { where("owner_id IS NOT NULL AND owner_id <> 0")}
+	scope :barbarian, -> { where("owner_id IS NULL OR owner_id = 0")}
 	scope :for_user, ->(user) { where(["id = ? OR owner_id = ?", user.character.id, user.character.id])}
 	scope :not_killed, -> { where(killed: false )}
 	scope :killed, -> { where(killed: true )}
@@ -54,12 +59,52 @@ class Position < ActiveRecord::Base
 		position
 	end
 
+	def self.create_barbarian!(game, name="Barbarians")
+		raise "Invalid game" unless game
+		raise "Invalid name" if name.blank?
+		settlement = Position.in_game(game).player.settlement.to_a.sample
+		hex = Hex.in_game(game).unowned.any_of_terrains(Terrain::CITY_TERRAIN_RECRUITMENT.keys)
+		if settlement
+			hex = hex.around_block(settlement.x, settlement.y, 10)
+		end
+		hex = hex.to_a.sample
+		return unless hex
+		position = Army.in_game(game).at_loc(hex.location).first
+		unless position && position.barbarian?
+			position = create!(game: game, name: name, position_type: 'Army', x: hex.x, y: hex.y)
+			position = Army.new(id: position.id, position: position)
+			position.save!
+		end
+		position.create_race_unit!
+		Rumour.report_barbarians!(game.game_time, position.location)
+		position
+	end
+
 	POSITION_TYPES.each do |pos_type|
 		define_method("#{pos_type.downcase}?") do 
 			self.position_type == pos_type
 		end
 
-		scope pos_type.downcase.to_sym, -> { where(position_type: pos_type )}
+		scope pos_type.downcase.to_sym, -> { with_subtype(pos_type) }
+	end
+
+	def self.with_subtype(position_type)
+		return case position_type
+		when 'Character'
+			joins(:character).where('characters.id IS NOT NULL')
+		when 'Army'
+			joins(:army).where('armies.id IS NOT NULL')
+		when 'Settlement'
+			joins(:settlement).where('settlements.id IS NOT NULL')
+		end
+	end
+
+	def ghost?
+		subclass == :unknown
+	end
+
+	def barbarian?
+		!character? && self.owner.nil?
 	end
 
 	def subclass

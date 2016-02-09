@@ -13,6 +13,7 @@ class ActionReport < ActiveRecord::Base
 	scope :for_user, ->(user) { joins(:position).where(["positions.id = ? OR positions.owner_id = ?", user.character.id, user.character.id])}
 
 	def self.add_report!(position, name, summary, caused_by=nil)
+		return unless position && name
 		position = position.position unless position.is_a?(Position)
 		caused_by = caused_by.position unless caused_by.nil? || caused_by.is_a?(Position)
 		report = ActionReport.new(position: position, name: name, summary: summary, game_time: position.game.game_time)

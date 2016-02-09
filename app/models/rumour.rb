@@ -1,6 +1,6 @@
 class Rumour < ActiveRecord::Base
 	RUMOUR_EXPIRATION = 16
-	RUMOUR_TYPES = ['Alliance News', 'Character Death', 'Battle', 'Settlement Formed', 'Settlement Razed', 'Disaster']
+	RUMOUR_TYPES = ['Alliance News', 'Barbarians', 'Character Death', 'Battle', 'Settlement Formed', 'Settlement Razed', 'Disaster']
 
 	include Spatial
 	include Temporal
@@ -66,6 +66,16 @@ class Rumour < ActiveRecord::Base
 		r.summary = summary
 		r.location = location
 		r.game_time = game_time
+		r.save!
+		r
+	end
+
+	def self.report_barbarians!(game_time, location)
+		r = Rumour.new(rumour_type: 'Barbarians')
+		r.summary = "Barbarians have formed an army at ##{location}"
+		r.location = location
+		r.game_time = game_time
+		r.spread_rate = 2
 		r.save!
 		r
 	end
